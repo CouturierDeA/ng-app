@@ -5,21 +5,25 @@
       (onUpdate)="showUpdateForm($event)"
       (onDelete)="deleteTodo($event)"
       [todoList$]="todoList$"
-      [controlsDisabled]="isAddActivated || isUpdateActivated"
+      [controlsDisabled]="onEdit"
       style="margin: 1rem 0; display: block">
     </TodoList>
   </div>
-  <TodoForm class="todo-update-form"
+  <TodoForm class="todo-page-form todo-update-form"
             *ngIf="isUpdateActivated && !!newTodo"
             [todo]="newTodo"
-            (submitEvent)="updateTodo($event)">
+            (submitEvent)="updateTodo($event)"
+            (cancelEvent)="cancelSubmit()"
+  >
   </TodoForm>
-  <TodoForm class="todo-add-form"
+  <TodoForm class="todo-page-form todo-add-form"
             *ngIf="isAddActivated && !!newTodo"
             [todo]="newTodo"
-            (submitEvent)="addTodo($event)">
+            (submitEvent)="addTodo($event)"
+            (cancelEvent)="cancelSubmit()"
+  >
   </TodoForm>
-  <button class="todo-item-add" [disabled]="isAddActivated"
+  <button *ngIf="!onEdit" class="todo-item-add"
           (click)="showAddForm()">add
   </button>
 </div>

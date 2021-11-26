@@ -1,9 +1,10 @@
-<form class="todo-form" *ngIf="todo" (ngSubmit)="onSubmit(todo)" #updateForm="ngForm">
-  <label class="control">
-    <span class="label">Todo Name</span>
-    <input #titleC="ngModel" class="todo-form-title"
+<form #form class="todo-form" *ngIf="todo" (ngSubmit)="onSubmit(todo)" #updateForm="ngForm">
+  <div class="control">
+    <label for="title" class="label">Todo Name</label>
+    <input #titleC="ngModel" class="input todo-form-title"
            type="text"
            name="title"
+           id="title"
            required
            minlength="3"
            maxlength="50"
@@ -13,31 +14,37 @@
               entityId: todo.id,
               fieldName: 'title'
            }"
-           [(ngModel)]="todo.title"
-           style="width: 400px"/>
-  </label>
-  <div *ngIf="titleC.errors" style="color: red">
-    <span *ngIf="titleC.errors['required']">Title required</span>
-    <span *ngIf="titleC.errors['minlength']">Title minlength {{titleC.errors['minlength']['requiredLength']}}</span>
-    <span *ngIf="titleC.errors['uniqueValue']">Title is not unique</span>
+           [(ngModel)]="todo.title"/>
+    <div *ngIf="titleC.errors" style="color: red">
+      <span *ngIf="titleC.errors['required']">Title required</span>
+      <span *ngIf="titleC.errors['minlength']">Title minlength {{titleC.errors['minlength']['requiredLength']}}</span>
+      <span *ngIf="titleC.errors['uniqueValue']">Title is not unique</span>
+    </div>
   </div>
-  <label class="control">
-    <span class="label">Todo description</span>
+  <div class="control">
+    <label for="description" class="label">Todo description</label>
     <input #descrC="ngModel"
-           class="todo-form-description"
+           id="description"
+           class="input todo-form-description"
            type="text"
            name="description"
            required
            minlength="3"
            maxlength="50"
-           [(ngModel)]="todo.description"
-           style="width: 400px"/>
-  </label>
-  <div *ngIf="descrC.errors" style="color: red">
-    <span *ngIf="descrC.errors['required']">Title required</span>
-    <span *ngIf="descrC.errors['minlength']">Title minlength {{descrC.errors['minlength']['requiredLength']}}</span>
+           [(ngModel)]="todo.description"/>
+    <div *ngIf="descrC.errors" style="color: red">
+      <span *ngIf="descrC.errors['required']">Title required</span>
+      <span *ngIf="descrC.errors['minlength']">Title minlength {{descrC.errors['minlength']['requiredLength']}}</span>
+    </div>
   </div>
-  <button [disabled]="updateForm.invalid || updateForm.pending" class="todo-submit"
-          type="submit">Submit
-  </button>
+  <div class="btn-control">
+    <button [disabled]="updateForm.invalid || updateForm.pending"
+            class="todo-submit"
+            type="submit">Submit
+    </button>
+    <button [disabled]="updateForm.pending"
+            class="todo-cancel-submit"
+            (click)="onCancel($event)">Cancel
+    </button>
+  </div>
 </form>

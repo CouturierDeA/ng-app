@@ -1,0 +1,24 @@
+.btn-control,
+.control {
+  & + & {
+    margin-top: .75rem;
+  }
+}
+
+.btn-control {
+  margin-left: -.25rem;
+  margin-top: -.25rem;
+  > button {
+    margin: .25rem;
+  }
+}
+
+.label {
+  margin-bottom: .25rem;
+  display: inline-block;
+}
+
+.input {
+  display: block;
+  max-width: 100%;
+}

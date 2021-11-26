@@ -7,7 +7,8 @@ import {map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'TodoPageRx',
-  templateUrl: './todo-page.component.html'
+  templateUrl: './todo-page.component.html',
+  styleUrls: ['./todo-page.component.scss']
 })
 export class TodoPageComponent implements OnInit, OnDestroy {
   constructor(
@@ -31,18 +32,12 @@ export class TodoPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.readTodoList();
-    // this.subs = [
-    //   this.todoStore.entities$.subscribe(()=>{
-    //     console.error('test 12 ')
-    //   }),
-    //   this.todoStore.entities$.subscribe(()=>{
-    //     console.error('test 12 ')
-    //   })
-    // ]
   }
+
   subs: Subscription[] = []
+
   ngOnDestroy() {
-    this.subs.forEach(sub=> sub.unsubscribe())
+    this.subs.forEach(sub => sub.unsubscribe())
   }
 
   readTodoList = () => {
@@ -57,6 +52,12 @@ export class TodoPageComponent implements OnInit, OnDestroy {
     await this.todoService.updateTodo(todo.id, todo).toPromise();
     this.isUpdateActivated = false;
     this.newTodo = undefined;
+  }
+
+  cancelSubmit() {
+    this.newTodo = undefined
+    this.isUpdateActivated = false;
+    this.isAddActivated = false;
   }
 
   async addTodo(todo: Todo) {
@@ -77,5 +78,9 @@ export class TodoPageComponent implements OnInit, OnDestroy {
       description: '',
     };
     this.isAddActivated = true;
+  }
+
+  get onEdit() {
+    return this.isAddActivated || this.isUpdateActivated
   }
 }
