@@ -4,7 +4,7 @@
 
 Run `ng serve --hmr` for a dev server. Navigate to `http://localhost:4200/`
 
-Run `json-server --watch db.json`
+Run `json-server --watch db.json` for a backend of the application
 
 ## Code scaffolding
 
