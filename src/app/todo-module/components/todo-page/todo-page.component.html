@@ -1,0 +1,25 @@
+<div class="todo-page">
+  <div class="todo-table">
+    <TodoSearch [search$]="search$"></TodoSearch>
+    <TodoList
+      (onUpdate)="showUpdateForm($event)"
+      (onDelete)="deleteTodo($event)"
+      [todoList$]="todoList$"
+      [controlsDisabled]="isAddActivated || isUpdateActivated"
+      style="margin: 1rem 0; display: block">
+    </TodoList>
+  </div>
+  <TodoForm class="todo-update-form"
+            *ngIf="isUpdateActivated && !!newTodo"
+            [todo]="newTodo"
+            (submitEvent)="updateTodo($event)">
+  </TodoForm>
+  <TodoForm class="todo-add-form"
+            *ngIf="isAddActivated && !!newTodo"
+            [todo]="newTodo"
+            (submitEvent)="addTodo($event)">
+  </TodoForm>
+  <button class="todo-item-add" [disabled]="isAddActivated"
+          (click)="showAddForm()">add
+  </button>
+</div>

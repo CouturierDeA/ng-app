@@ -1,0 +1,41 @@
+<div class="up-select">
+  <input class="up-select-name" readonly
+         [ngModel]="selectedName"
+         [placeholder]="selectedName"/>
+  <ul class="up-select-options">
+    <li *ngFor="let option of computedOptions; let i=index" (click)="selectOption(option.id)"
+        [class.selected]="value === option.id"
+        class="up-select-option">
+
+      <ng-template #defaultTemplateRef>
+        <div class="default">{{option && option.label}}</div>
+      </ng-template>
+
+      <ng-container
+        [ngTemplateOutlet]="optionTemplateRef || defaultTemplateRef"
+        [ngTemplateOutletContext]="{$implicit: option}"
+      ></ng-container>
+
+    </li>
+    <li *ngIf="!computedOptions?.length">
+      <ng-template #defaultNoOptionsTemplateRef>
+        ---
+      </ng-template>
+
+      <ng-container
+        [ngTemplateOutlet]="noOptionsTemplateRef || defaultNoOptionsTemplateRef"
+      ></ng-container>
+    </li>
+  </ul>
+  <div *ngIf="control && control.errors" class="text-danger up-select-errors">
+    <ng-container [ngTemplateOutlet]="errorTemplateRef"
+                  [ngTemplateOutletContext]="{$implicit: control.errors}"
+    ></ng-container>
+  </div>
+  <div *ngFor="let templateRef of arrTemplatesRef; let i = index" #cmp>
+    <ng-container
+      [ngTemplateOutlet]="templateRef"
+      [ngTemplateOutletContext]="{$implicit: {index: i}}"
+    ></ng-container>
+  </div>
+</div>

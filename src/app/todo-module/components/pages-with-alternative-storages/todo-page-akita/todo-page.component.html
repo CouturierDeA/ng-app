@@ -1,0 +1,36 @@
+<div class="todo-page">
+  <div class="todo-table">
+    <input class="todo-search" type="text"  placeholder="search by title " [ngModel]="search$ | async" (ngModelChange)="onSearch($event)">
+    <table class="table table-dark">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Operations</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let todo of todoList$ | async">
+        <td>{{ todo.title }}</td>
+        <td>{{ todo.description }}</td>
+        <td>
+          <button (click)="showUpdateForm(todo)" class="btn btn-primary" style="margin: 5px">Update</button>
+          <button (click)="deleteTodo(todo.id)" class="btn btn-danger" style="margin: 5px">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button [disabled]="isAddActivated"
+          (click)="showAddForm()">add
+  </button>
+  <TodoForm *ngIf="isUpdateActivated && !!newTodo" [todo]="newTodo"
+            (submitEvent)="updateTodo($event)"
+            style="display: block; margin-top: 50px; margin-left: 50px;">
+  </TodoForm>
+  <TodoForm *ngIf="isAddActivated && !!newTodo" [todo]="newTodo"
+            (submitEvent)="addTodo($event)"
+            style="display: block; margin-top: 50px; margin-left: 50px;">
+  </TodoForm>
+</div>

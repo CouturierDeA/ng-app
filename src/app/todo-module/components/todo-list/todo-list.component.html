@@ -1,0 +1,19 @@
+<table class="table table-dark">
+  <thead>
+  <tr>
+    <th scope="col">Title</th>
+    <th scope="col">Description</th>
+    <th scope="col">Operations</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let todo of (todoList$ | async)" class="todo-item">
+    <td class="todo-item-title">{{ todo.title }}</td>
+    <td class="todo-item-description">{{ todo.description }}</td>
+    <td class="todo-item-actions">
+      <button [disabled]="controlsDisabled" (click)="update(todo)" class="todo-item-update" style="margin: 5px">Update</button>
+      <button [disabled]="controlsDisabled" (click)="delete(todo)" class="todo-item-delete" style="margin: 5px">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
