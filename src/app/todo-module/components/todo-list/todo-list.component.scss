@@ -1,0 +1,21 @@
+.todo-item-actions {
+  margin-left: -.5rem;
+  margin-right: -.5rem;
+}
+.todo-item-action {
+  margin-left: .5rem;
+  margin-right: .5rem;
+
+}
+
+.table {
+  width: 100%;
+  border: 1px solid black;
+  td, th {
+    border: 1px solid black;
+    text-align: center;
+  }
+  td {
+    padding: .5rem;
+  }
+}

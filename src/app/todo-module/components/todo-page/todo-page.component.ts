@@ -43,7 +43,7 @@ export class TodoPageComponent implements OnInit {
       map(v => v.length)
     )
   }
-  
+
 
   doDelete(todo: Todo) {
     this.todoService.deleteTodo(todo.id)

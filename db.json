@@ -3,27 +3,31 @@
     {
       "id": 1,
       "title": "Todo 1",
-      "description": "first todo"
+      "description": "description 1",
+      "completed": true
     },
     {
       "id": 2,
       "title": "Todo 2",
-      "description": "second todo"
+      "description": "description 2",
+      "completed": true
     },
     {
       "id": 3,
       "title": "Todo 3",
-      "description": "third todo"
+      "description": "description 3"
     },
     {
       "id": 4,
       "title": "Todo 4",
-      "description": "fourth todo"
+      "description": "description 4",
+      "completed": false
     },
     {
       "id": 5,
-      "title": "Todo 6",
-      "description": "sixth todo"
+      "title": "Todo 5",
+      "description": "description 5",
+      "completed": false
     }
   ]
 }

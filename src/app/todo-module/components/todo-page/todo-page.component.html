@@ -1,29 +1,18 @@
-<div class="todo-page">
+<section class="todo-page">
+  <h2>Todo page</h2>
   <div class="todo-table">
-    <TodoSearch [search$]="search$"></TodoSearch>
+    <h4>Completed ({{completedLength$ | async}})</h4>
     <TodoList
       (onUpdate)="showUpdateForm($event)"
-      (onDelete)="deleteTodo($event)"
-      [todoList$]="todoList$"
-      [controlsDisabled]="onEdit"
-      style="margin: 1rem 0; display: block">
+      (onDelete)="doDelete($event)"
+      [todoList$]="completedTodoList$"
+    >
+    </TodoList>
+    <h4>Uncompleted ({{uncompletedLength$ | async}})</h4>
+    <TodoList
+      (onUpdate)="showUpdateForm($event)"
+      (onDelete)="doDelete($event)"
+      [todoList$]="uncompletedTodoList$">
     </TodoList>
   </div>
-  <TodoForm class="todo-page-form todo-update-form"
-            *ngIf="isUpdateActivated && !!newTodo"
-            [todo]="newTodo"
-            (submitEvent)="updateTodo($event)"
-            (cancelEvent)="cancelSubmit()"
-  >
-  </TodoForm>
-  <TodoForm class="todo-page-form todo-add-form"
-            *ngIf="isAddActivated && !!newTodo"
-            [todo]="newTodo"
-            (submitEvent)="addTodo($event)"
-            (cancelEvent)="cancelSubmit()"
-  >
-  </TodoForm>
-  <button *ngIf="!onEdit" class="todo-item-add"
-          (click)="showAddForm()">add
-  </button>
-</div>
+</section>

@@ -37,6 +37,18 @@
       <span *ngIf="descrC.errors['minlength']">Title minlength {{descrC.errors['minlength']['requiredLength']}}</span>
     </div>
   </div>
+  <div class="control">
+    <label for="completed" class="label">Todo completed</label>
+    <input #complC="ngModel"
+           id="completed"
+           class="input todo-form-completed"
+           type="checkbox"
+           name="completed"
+           [(ngModel)]="todo.completed"/>
+    <div *ngIf="complC.errors" style="color: red">
+      <span *ngIf="complC.errors['required']">Title required</span>
+    </div>
+  </div>
   <div class="btn-control">
     <button [disabled]="updateForm.invalid || updateForm.pending"
             class="todo-submit"

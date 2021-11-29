@@ -4,7 +4,8 @@ import {Observable} from "rxjs";
 
 @Component({
   selector: 'TodoList',
-  templateUrl: './todo-list.component.html'
+  templateUrl: './todo-list.component.html',
+  styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent {
   @Input()

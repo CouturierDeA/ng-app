@@ -1,12 +1,11 @@
 import {Todo} from '../domain/todo';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, throwError, of} from 'rxjs';
-import {catchError, map} from "rxjs/operators";
+import {Observable} from 'rxjs';
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class TodoService {
-  // protected baseUrl = 'https://localhost:4000'
   protected baseUrl = 'http://localhost:3000'
 
   constructor(protected http: HttpClient) {
