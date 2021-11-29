@@ -1,86 +1,59 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Todo} from "../../domain/todo";
-import {RxTodoService} from "../../rx-store/todo.service";
-import {RxTodoStore} from "../../rx-store/todo.store";
-import {BehaviorSubject, Subscription} from "rxjs";
-import {map, switchMap} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {map, share} from "rxjs/operators";
+import {TodoService} from "../../services/todo.service";
 
 @Component({
   selector: 'TodoPageRx',
   templateUrl: './todo-page.component.html',
   styleUrls: ['./todo-page.component.scss']
 })
-export class TodoPageComponent implements OnInit, OnDestroy {
+export class TodoPageComponent implements OnInit {
   constructor(
-    private todoService: RxTodoService,
-    private todoStore: RxTodoStore
+    private todoService: TodoService,
   ) {
   }
 
-  newTodo?: Todo
-  isUpdateActivated = false
-  isAddActivated = false
-  search$ = new BehaviorSubject('')
-
-  todoList$ = this.todoStore.entities$.pipe(
-    switchMap((todoList) => {
-      return this.search$.pipe(
-        map(value => todoList.filter(todo => value ? todo.title.includes(value) : todo))
-      )
-    })
-  )
+  completedTodoList$?: Observable<Todo[]>
+  uncompletedTodoList$?: Observable<Todo[]>
+  totalLength$?: Observable<number>
+  completedLength$?: Observable<number>
+  uncompletedLength$?: Observable<number>
 
   ngOnInit() {
-    this.readTodoList();
+    const src$ = this.todoService.getTodoList().pipe(
+      share()
+    )
+    this.completedTodoList$ = src$.pipe(
+      map(list => list.filter(li => li.completed))
+    );
+    this.uncompletedTodoList$ = src$.pipe(
+      map(list => list.filter(li => !li.completed))
+    );
+    const {completedTodoList$, uncompletedTodoList$} = this;
+
+    this.totalLength$ = src$.pipe(
+      map(v => v.length)
+    )
+    this.completedLength$ = completedTodoList$.pipe(
+      map(v => v.length)
+    )
+    this.uncompletedLength$ = uncompletedTodoList$.pipe(
+      map(v => v.length)
+    )
   }
+  
 
-  subs: Subscription[] = []
-
-  ngOnDestroy() {
-    this.subs.forEach(sub => sub.unsubscribe())
-  }
-
-  readTodoList = () => {
-    this.todoService.readTodoList().toPromise()
-  }
-
-  deleteTodo(todo: Todo) {
-    this.todoService.deleteTodo(todo.id).toPromise()
-  }
-
-  async updateTodo(todo: Todo) {
-    await this.todoService.updateTodo(todo.id, todo).toPromise();
-    this.isUpdateActivated = false;
-    this.newTodo = undefined;
-  }
-
-  cancelSubmit() {
-    this.newTodo = undefined
-    this.isUpdateActivated = false;
-    this.isAddActivated = false;
-  }
-
-  async addTodo(todo: Todo) {
-    await this.todoService.addTodo(todo).toPromise();
-    this.isAddActivated = false;
-    this.newTodo = undefined;
+  doDelete(todo: Todo) {
+    this.todoService.deleteTodo(todo.id)
   }
 
   showUpdateForm(todo: Todo) {
-    this.newTodo = {...todo};
-    this.isUpdateActivated = true;
+    throw 'Unsupported yet'
   }
 
   showAddForm() {
-    this.newTodo = {
-      id: NaN,
-      title: '',
-      description: '',
-    };
-    this.isAddActivated = true;
-  }
-
-  get onEdit() {
-    return this.isAddActivated || this.isUpdateActivated
+    throw 'Unsupported yet'
   }
 }
