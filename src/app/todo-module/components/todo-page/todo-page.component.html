@@ -1,13 +1,6 @@
 <section class="todo-page">
   <h2>Todo page</h2>
-  <div>
-    <h4>Search by title</h4>
-    <input #searchInput class="todo-search"
-           type="text"
-           placeholder="search by title "
-           [ngModel]="todoStore.search$ | async"
-    >
-  </div>
+  <TodoSearch></TodoSearch>
   <div class="todo-table">
     <h4>Completed ({{todoStore.completedLength$ | async}})</h4>
     <TodoList

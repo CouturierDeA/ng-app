@@ -1,14 +1,10 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Todo} from "../../domain/todo";
 import {
   BehaviorSubject,
   combineLatest,
-  fromEvent,
-  Subscription,
 } from "rxjs";
 import {
-  debounceTime,
-  distinctUntilChanged,
   map,
 } from "rxjs/operators";
 import {RxTodoStore} from "../../rx-store/todo.store";
@@ -19,7 +15,7 @@ import {RxTodoService} from "../../rx-store/todo.service";
   templateUrl: './todo-page.component.html',
   styleUrls: ['./todo-page.component.scss']
 })
-export class TodoPageComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TodoPageComponent implements OnInit {
   constructor(
     private todoService: RxTodoService,
     public todoStore: RxTodoStore,
@@ -36,31 +32,12 @@ export class TodoPageComponent implements OnInit, OnDestroy, AfterViewInit {
     map(([updateFormVisible, addFormVisible]) => updateFormVisible || addFormVisible)
   )
 
-  @ViewChild('searchInput', {read: ElementRef})
-  inputRef!: ElementRef<HTMLInputElement>;
-  inputSub!: Subscription
-
-
   ngOnInit() {
     this.readTodoList()
   }
 
   readTodoList() {
     this.todoService.readTodoList().toPromise();
-  }
-
-  ngAfterViewInit() {
-    this.inputSub = fromEvent(this.inputRef.nativeElement, 'input').pipe(
-      map(event => (event.target as HTMLInputElement)?.value),
-      distinctUntilChanged(),
-      debounceTime(500),
-    ).subscribe(search => {
-      this.todoStore.search$?.next(search)
-    })
-  }
-
-  ngOnDestroy() {
-    this.inputSub?.unsubscribe(); // не забываем отписаться, воизбежание утечек памяти
   }
 
   showUpdateForm(todo: Todo) {
