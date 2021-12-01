@@ -8,7 +8,7 @@ export let getElement = (parent: HTMLElement, selector: string): HTMLElement | n
   return parent.querySelector(selector)
 }
 
-export const getItemsListFromFixture = <T>(fixture: ComponentFixture<T>, selector: string = '.todo-item'): Array<{
+export const getItemsListFromFixture = <T>(fixture: ComponentFixture<T>): Array<{
   titleText: string | undefined,
   descriptionText: string | undefined
 }> | undefined => {

@@ -21,9 +21,6 @@ export class TodoFormComponent {
   cancelEvent = new EventEmitter<void>();
 
   onSubmit(course: Todo) {
-    if (this.form.invalid) {
-      return
-    }
     this.submitEvent.emit(course);
   }
 

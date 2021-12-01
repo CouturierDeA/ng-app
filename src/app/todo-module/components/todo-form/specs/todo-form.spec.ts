@@ -53,22 +53,40 @@ describe('Todo form tests', () => {
     expect(btn).toBeDefined()
   });
 
+  it('expect title input toBeDefined', async () => {
+    await fixture.whenStable()
+    const t = getTitleInput(fixture)
+    expect(t).toBeDefined()
+  });
+
+  it('expect description input toBeDefined', async () => {
+    await fixture.whenStable()
+    const d = getDescriptionInput(fixture)
+    expect(d).toBeDefined()
+  });
+
 
   it('Emits new or updated item after user input and submit', fakeAsync(async () => {
     spyOn(component.submitEvent, 'emit');
     component.todo = newTodo
     fixture.detectChanges();
     await fixture.whenStable()
-    const t = getTitleInput(fixture)
-    const d = getDescriptionInput(fixture)
-    const tt = 'Test new todo title'
     const dt = 'Test new todo description'
-    setInputValue(t, tt)
+    const descriptionInput = getDescriptionInput(fixture)
+    setInputValue(descriptionInput, dt)
     tick(1000)
-    setInputValue(d, dt)
+
+    const tt = 'Test new todo title'
+    const titleInput = getTitleInput(fixture)
+    setInputValue(titleInput, tt)
+    tick(1000)
+
     const btn = getTodoSubmitBtn(fixture);
     expect(btn).toBeDefined()
     btn.click()
+    tick(1000)
+    expect(component.form.invalid).toBeFalsy()
+    expect(btn.disabled).toBeFalsy()
     expect(component.submitEvent.emit).toHaveBeenCalledWith({
       id: newTodo.id,
       title: tt,

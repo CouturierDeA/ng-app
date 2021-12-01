@@ -1,11 +1,12 @@
 <form #form class="todo-form" *ngIf="todo" (ngSubmit)="onSubmit(todo)" #updateForm="ngForm">
-  <h4 class="todo-form-title">{{formTitle}}</h4>
+  <h4>{{formTitle}}</h4>
   <div class="control">
     <label for="title" class="label">Todo Name</label>
-    <input #titleC="ngModel" class="input todo-form-title"
+    <input #titleC="ngModel"
+           id="title"
+           class="input todo-form-title"
            type="text"
            name="title"
-           id="title"
            required
            minlength="3"
            maxlength="50"
@@ -34,8 +35,8 @@
            maxlength="50"
            [(ngModel)]="todo.description"/>
     <div *ngIf="descrC.errors" style="color: red">
-      <span *ngIf="descrC.errors['required']">Title required</span>
-      <span *ngIf="descrC.errors['minlength']">Title minlength {{descrC.errors['minlength']['requiredLength']}}</span>
+      <span *ngIf="descrC.errors['required']">Description required</span>
+      <span *ngIf="descrC.errors['minlength']">Description minlength {{descrC.errors['minlength']['requiredLength']}}</span>
     </div>
   </div>
   <div class="control">
@@ -51,7 +52,7 @@
     </div>
   </div>
   <div class="btn-control">
-    <button [disabled]="updateForm.invalid || updateForm.pending"
+    <button [disabled]="updateForm.pending || updateForm.invalid"
             class="todo-submit"
             type="submit">Submit
     </button>

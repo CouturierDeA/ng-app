@@ -16,8 +16,9 @@ import {UniqueValueDirective} from "./directives/validations/unique.directive";
 
 import {TodoRoutingModule} from "./todo-routing.module";
 
-// import {getTodoServiceMocks} from "./components/todo-page-rx/specs/utils";
-// const mocks = getTodoServiceMocks()
+import {getTodoServiceMocks} from "./components/todo-page/specs/utils";
+
+const mocks = getTodoServiceMocks()
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import {TodoRoutingModule} from "./todo-routing.module";
     TodoRoutingModule,
   ],
   providers: [
-    // {provide: TodoService, useValue: mocks.service},
-    TodoService,
+    {provide: TodoService, useValue: mocks.service},
+    // TodoService,
     RxTodoService,
     RxTodoStore,
   ]

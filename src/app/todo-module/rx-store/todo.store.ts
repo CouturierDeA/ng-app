@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Todo} from "../domain/todo";
 import {Store} from "./store";
-import {map, share} from "rxjs/operators";
+import {map, share, shareReplay} from "rxjs/operators";
 import {BehaviorSubject, combineLatest} from "rxjs";
 
 @Injectable()
@@ -13,11 +13,11 @@ export class RxTodoStore extends Store<Todo> {
       map(([list, searchValue]) => list.filter(
         todoItem => searchValue ? todoItem.title.includes(searchValue) : true)
       ),
-      share()
+      shareReplay()
     )
 
   completedTodoList$ = this.searchList$.pipe(
-    map(list => list.filter(li => li.completed))
+    map(list => list.filter(li => li.completed)),
   );
   uncompletedTodoList$ = this.searchList$.pipe(
     map(list => list.filter(li => !li.completed))

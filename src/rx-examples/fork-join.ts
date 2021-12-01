@@ -7,10 +7,6 @@ const myPromise = (val: any) =>
     setTimeout(() => resolve(`Promise Resolved: ${val}`), 2000)
   );
 
-/*
-  when all observables complete, give the last
-  emitted value from each as an array
-*/
 const example = forkJoin({
   //emit 'Hello' immediately
   sourceOne: of('Hello'),
