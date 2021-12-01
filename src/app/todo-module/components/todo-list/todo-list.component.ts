@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 })
 export class TodoListComponent {
   @Input()
-  controlsDisabled?: boolean
+  controlsDisabled?: boolean | null
 
   @Input()
   todoList$?: Observable<Todo[]>
@@ -20,11 +20,11 @@ export class TodoListComponent {
   @Output()
   onDelete = new EventEmitter<Todo>()
 
-  update(todo: Todo){
+  onUpdateClick(todo: Todo){
     this.onUpdate.emit(todo)
   }
 
-  delete(todo: Todo){
+  onDeleteClick(todo: Todo){
     this.onDelete.emit(todo)
   }
 }

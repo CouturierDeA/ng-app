@@ -11,10 +11,10 @@
     <td class="todo-item-title">{{ todo.title }}</td>
     <td class="todo-item-description">{{ todo.description }}</td>
     <td class="todo-item-actions">
-      <button [disabled]="controlsDisabled" (click)="update(todo)" class="todo-item-action todo-item-update">
+      <button [disabled]="controlsDisabled" (click)="onUpdateClick(todo)" class="todo-item-action todo-item-update">
         Update
       </button>
-      <button [disabled]="controlsDisabled" (click)="delete(todo)" class="todo-item-action todo-item-delete">
+      <button [disabled]="controlsDisabled" (click)="onDeleteClick(todo)" class="todo-item-action todo-item-delete">
         Delete
       </button>
     </td>

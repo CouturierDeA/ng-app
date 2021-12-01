@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {Todo} from "../../domain/todo";
 import {NgForm} from "@angular/forms";
 
@@ -11,7 +11,9 @@ export class TodoFormComponent {
   @ViewChild('form')
   form!: NgForm
   @Input()
-  todo?: Todo
+  formTitle?: string
+  @Input()
+  todo?: Todo | null
 
   @Output()
   submitEvent = new EventEmitter<Todo>();

@@ -9,7 +9,6 @@ describe('Rx store works correctly', () => {
   let entity2: TestItem
   let entity3: TestItem
   let store: Store<TestItem>
-
   beforeEach(() => {
     entity = {
       id: 1,
@@ -25,7 +24,6 @@ describe('Rx store works correctly', () => {
     }
     store = new Store<TestItem>()
   })
-
   it('Store adds and deletes entities correctly', () => {
     expect(store.getEntities()).toEqual([])
     store.addEntity(entity)

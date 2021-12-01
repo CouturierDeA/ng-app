@@ -8,8 +8,8 @@
     },
     {
       "id": 2,
-      "title": "Todo 2",
-      "description": "description 2",
+      "title": "Todo 2 updated",
+      "description": "description 2 updated",
       "completed": true
     },
     {
@@ -24,10 +24,9 @@
       "completed": false
     },
     {
+      "description": "description 5 updated",
       "id": 5,
-      "title": "Todo 5",
-      "description": "description 5",
-      "completed": false
+      "title": "Todo 5"
     }
   ]
 }

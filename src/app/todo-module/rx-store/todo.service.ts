@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {catchError, shareReplay, tap} from 'rxjs/operators';
+import {tap, retry} from 'rxjs/operators';
 
 import {TodoService} from "../services/todo.service";
 import {Todo} from "../domain/todo";
 import {RxTodoStore} from "./todo.store";
-import {HttpErrorResponse} from "@angular/common/http";
 
 @Injectable()
 export class RxTodoService {
@@ -17,6 +16,7 @@ export class RxTodoService {
   readTodoList() {
     return this.todoService.getTodoList().pipe(
       tap(todoList => this.todoStore.updateEntities(todoList)),
+      retry(1)
     )
   }
 

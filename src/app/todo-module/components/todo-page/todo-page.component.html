@@ -1,18 +1,52 @@
 <section class="todo-page">
   <h2>Todo page</h2>
+  <div>
+    <h4>Search by title</h4>
+    <input #searchInput class="todo-search"
+           type="text"
+           placeholder="search by title "
+           [ngModel]="todoStore.search$ | async"
+    >
+  </div>
   <div class="todo-table">
-    <h4>Completed ({{completedLength$ | async}})</h4>
+    <h4>Completed ({{todoStore.completedLength$ | async}})</h4>
     <TodoList
       (onUpdate)="showUpdateForm($event)"
       (onDelete)="doDelete($event)"
-      [todoList$]="completedTodoList$"
+      [todoList$]="todoStore.completedTodoList$"
+      [controlsDisabled]="controlsDisabled$ | async"
     >
     </TodoList>
-    <h4>Uncompleted ({{uncompletedLength$ | async}})</h4>
+    <h4>Uncompleted ({{todoStore.uncompletedLength$ | async}})</h4>
     <TodoList
       (onUpdate)="showUpdateForm($event)"
       (onDelete)="doDelete($event)"
-      [todoList$]="uncompletedTodoList$">
+      [todoList$]="todoStore.uncompletedTodoList$"
+      [controlsDisabled]="controlsDisabled$ | async"
+    >
     </TodoList>
   </div>
+  <div class="todo-item-controls">
+    <button class="todo-item-add"
+            *ngIf="!(addFormVisible$ | async)"
+            [disabled]="controlsDisabled$ | async"
+            (click)="showAddForm()">add new todo
+    </button>
+  </div>
+  <TodoForm class="todo-page-form todo-update-form"
+            [formTitle]="'Update todo'"
+            *ngIf="(updateFormVisible$ | async)"
+            [todo]="(newTodo$ | async)"
+            (cancelEvent)="onSubmitCancel()"
+            (submitEvent)="onUpdateTodo($event)"
+  >
+  </TodoForm>
+  <TodoForm class="todo-page-form todo-add-form"
+            [formTitle]="'Add new todo'"
+            *ngIf="(addFormVisible$ | async)"
+            [todo]="(newTodo$ | async)"
+            (cancelEvent)="onSubmitCancel()"
+            (submitEvent)="onAddTodo($event)"
+  >
+  </TodoForm>
 </section>

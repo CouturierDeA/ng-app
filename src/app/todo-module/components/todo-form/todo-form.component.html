@@ -1,4 +1,5 @@
 <form #form class="todo-form" *ngIf="todo" (ngSubmit)="onSubmit(todo)" #updateForm="ngForm">
+  <h4 class="todo-form-title">{{formTitle}}</h4>
   <div class="control">
     <label for="title" class="label">Todo Name</label>
     <input #titleC="ngModel" class="input todo-form-title"
