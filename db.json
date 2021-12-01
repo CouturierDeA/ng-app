@@ -27,6 +27,18 @@
       "description": "description 5 updated",
       "id": 5,
       "title": "Todo 5"
+    },
+    {
+      "description": "description 6",
+      "id": 6,
+      "title": "Todo 6",
+      "completed": true
+    },
+    {
+      "completed": true,
+      "description": "7 description",
+      "id": 7,
+      "title": "Todo 7"
     }
   ]
 }
