@@ -5,14 +5,14 @@
     <TodoList
       (onUpdate)="showUpdateForm($event)"
       (onDelete)="doDelete($event)"
-      [todoList$]="completedTodoList$"
+      [todoList]="(completedTodoList$ | async)"
     >
     </TodoList>
     <h4>Uncompleted ({{uncompletedLength$ | async}})</h4>
     <TodoList
       (onUpdate)="showUpdateForm($event)"
       (onDelete)="doDelete($event)"
-      [todoList$]="uncompletedTodoList$">
+      [todoList]="(uncompletedTodoList$ | async)">
     </TodoList>
   </div>
 </section>
