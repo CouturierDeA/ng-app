@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {FormsModule} from "@angular/forms";
 
 import {RxTodoStore} from "./rx-store/todo.store";
@@ -13,11 +13,10 @@ import {TodoListComponent} from "./components/todo-list/todo-list.component";
 import {TodoSearchComponent} from "./components/todo-search/todo-search.component";
 
 import {UniqueValueDirective} from "./directives/validations/unique.directive";
-
 import {TodoRoutingModule} from "./todo-routing.module";
-
+//
 // import {getTodoServiceMocks} from "./components/todo-page/specs/utils";
-
+//
 // const mocks = getTodoServiceMocks()
 
 @NgModule({
@@ -30,7 +29,6 @@ import {TodoRoutingModule} from "./todo-routing.module";
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     TodoRoutingModule,
   ],
@@ -39,7 +37,9 @@ import {TodoRoutingModule} from "./todo-routing.module";
     TodoService,
     RxTodoService,
     RxTodoStore,
-  ]
+    TodoRoutingModule,
+    HttpClient
+  ],
 })
 export class TodoModule {
 }

@@ -6,6 +6,8 @@ Run `ng serve --hmr` for a dev server. Navigate to `http://localhost:4200/`
 
 Run `json-server --watch db.json` for a backend of the application
 
+Run `ng run ng-todo-app:serve-ssr` for a ssr application ( note that the server hasn't been reviewed for security issues )
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
