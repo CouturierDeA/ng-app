@@ -39,6 +39,12 @@
       "description": "7 description",
       "id": 7,
       "title": "Todo 7"
+    },
+    {
+      "completed": true,
+      "description": "8 description",
+      "id": 8,
+      "title": "Todo 8"
     }
   ]
 }
