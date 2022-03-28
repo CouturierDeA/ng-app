@@ -1,44 +1,34 @@
 {
   "todo": [
     {
-      "id": 1,
-      "title": "Todo 1",
-      "description": "description 1",
-      "completed": true
-    },
-    {
-      "id": 2,
-      "title": "Todo 2 updated",
-      "description": "description 2 updated",
-      "completed": true
-    },
-    {
+      "completed": true,
+      "description": "Todo 3 description",
       "id": 3,
-      "title": "Todo 3",
-      "description": "description 3"
+      "title": "Todo 3"
     },
     {
+      "completed": true,
+      "description": "Todo 4 description",
       "id": 4,
-      "title": "Todo 4",
-      "description": "description 4",
-      "completed": false
+      "title": "Todo 4"
     },
     {
-      "description": "description 5 updated",
+      "completed": true,
+      "description": "Todo 5 description",
       "id": 5,
       "title": "Todo 5"
     },
     {
-      "description": "description 6",
+      "completed": false,
+      "description": "Todo 6 description",
       "id": 6,
-      "title": "Todo 6",
-      "completed": true
+      "title": "Todo 6"
     },
     {
-      "completed": true,
-      "description": "7 description",
+      "completed": false,
+      "description": "blablabla",
       "id": 7,
-      "title": "Todo 7"
+      "title": "Todo 13"
     }
   ]
 }

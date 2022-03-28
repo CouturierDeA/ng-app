@@ -5,27 +5,32 @@ import {
   ElementRef, AfterViewInit
 } from '@angular/core';
 import {fromEvent, Subscription} from "rxjs";
-import {RxTodoStore} from "../../rx-store/todo.store";
 import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
+import {TodoCrudService} from "../../services/todo-crud.service";
 
 @Component({
-  selector: 'TodoSearch',
+  selector: 'app-todo-search',
   templateUrl: './todo-search.component.html'
 })
 export class TodoSearchComponent implements AfterViewInit, OnDestroy {
-  constructor(private todoStore: RxTodoStore) {
+  constructor(
+    private todoService: TodoCrudService
+  ) {
   }
-  search$ = this.todoStore.search$
+
   @ViewChild('input', {read: ElementRef})
   inputRef!: ElementRef<HTMLInputElement>;
   inputSub!: Subscription
+  searchByTitle$ = this.todoService.searchByTitle$
+
   ngAfterViewInit() {
     this.inputSub = fromEvent(this.inputRef.nativeElement, 'input').pipe(
       map(event => (event.target as HTMLInputElement)?.value),
       distinctUntilChanged(),
       debounceTime(500),
-    ).subscribe(search => this.search$?.next(search))
+    ).subscribe(title => this.todoService.triggerSearch(title))
   }
+
   ngOnDestroy() {
     this.inputSub?.unsubscribe();
   }

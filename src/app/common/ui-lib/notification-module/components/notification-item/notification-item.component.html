@@ -1,0 +1,10 @@
+<div style="padding: .5rem;">
+  <div data-id="app-notification"
+       class="app-notification {{notification.type}}">
+    <button data-id="close-notification" class="app-notification__close" (click)="remove()">+</button>
+    <p data-id="notification-message" class="app-notification__message {{notification.type}}">
+      {{notification.message}}
+    </p>
+  </div>
+
+</div>

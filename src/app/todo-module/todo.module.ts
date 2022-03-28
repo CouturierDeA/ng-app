@@ -1,11 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from "@angular/forms";
 
-import {RxTodoStore} from "./rx-store/todo.store";
-import {TodoService} from "./services/todo.service";
-import {RxTodoService} from "./rx-store/todo.service";
+import {HttpTodoService} from "./services/http-todo.service";
+import {TodoCrudService} from "./services/todo-crud.service";
 
 import {TodoFormComponent} from "./components/todo-form/todo-form.component";
 import {TodoPageComponent} from "./components/todo-page/todo-page.component";
@@ -15,10 +13,8 @@ import {TodoSearchComponent} from "./components/todo-search/todo-search.componen
 import {UniqueValueDirective} from "./directives/validations/unique.directive";
 
 import {TodoRoutingModule} from "./todo-routing.module";
-
-// import {getTodoServiceMocks} from "./components/todo-page/specs/utils";
-
-// const mocks = getTodoServiceMocks()
+import {UiModule} from "../common/ui-lib/ui.module";
+import {TodoModalsService} from "./services/todo-modals.service";
 
 @NgModule({
   declarations: [
@@ -30,16 +26,17 @@ import {TodoRoutingModule} from "./todo-routing.module";
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     TodoRoutingModule,
+    UiModule,
   ],
   providers: [
-    // {provide: TodoService, useValue: mocks.service},
-    TodoService,
-    RxTodoService,
-    RxTodoStore,
-  ]
+    HttpTodoService,
+    // uncomment this line and import MockHttpTodoService to use mocks in runtime
+    // {provide: HttpTodoService, useClass: MockHttpTodoService},
+    TodoCrudService,
+    TodoModalsService,
+  ],
 })
 export class TodoModule {
 }

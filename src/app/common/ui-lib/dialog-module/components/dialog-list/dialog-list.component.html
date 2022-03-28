@@ -1,0 +1,19 @@
+<div *ngFor="let np of (dialogList$ | async); let $i = index">
+  <app-modal *ngIf="!np.escapeModal" #modalComponent
+             [componentType]="np.componentType"
+             [appendToBody]="true"
+             [no-padding]="true"
+             [width]="np.width"
+             [overlayVisible]="($i + 1) === dialogsCount"
+             (closeEvent)="remove(np)">
+    <app-renderer [notificationParams]="np"
+              [dialogControls]="modalComponent"
+              [overlayVisible]="($i + 1) === dialogsCount"
+              [resolver]="np.resolver!">
+    </app-renderer>
+  </app-modal>
+  <app-renderer *ngIf="np.escapeModal" [notificationParams]="np"
+            [overlayVisible]="($i + 1) === dialogsCount"
+            [resolver]="np.resolver!">
+  </app-renderer>
+</div>

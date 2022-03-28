@@ -1,0 +1,47 @@
+@import "../../../../scss/core";
+
+.loader {
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility $transition, opacity $transition;
+  pointer-events: none;
+
+  &.fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.absolute {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+    &:not(.non-blocking) {
+      pointer-events: auto;
+      cursor: not-allowed;
+    }
+  }
+
+  .spinner {
+    @include lds-spinner($color: $success, $width: 80px, $height: 80px, $thick: 6px, $length: 20px, $time: 1s);
+  }
+
+  .non-blocking {
+    pointer-events: none;
+    cursor: default;
+  }
+}

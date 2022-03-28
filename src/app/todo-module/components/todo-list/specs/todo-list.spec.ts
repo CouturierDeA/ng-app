@@ -1,8 +1,8 @@
 import {ComponentFixture, ComponentFixtureAutoDetect, TestBed} from "@angular/core/testing";
 import {Todo} from "../../../domain/todo";
 import {TodoListComponent} from "../todo-list.component";
-import {BehaviorSubject} from "rxjs";
 import {getDeleteBtn, getItemsListFromFixture, getUpdateBtn} from "./utils";
+import {UiModule} from "../../../../common/ui-lib/ui.module";
 
 describe('TodoListComponent renders todo list correctly', () => {
   let component: TodoListComponent;
@@ -19,19 +19,20 @@ describe('TodoListComponent renders todo list correctly', () => {
       description: 'Test todo 2 description',
     }
   ]
-  let todoList$ = new BehaviorSubject<Todo[]>([])
 
   beforeEach(() => {
-    todoList$.next(todoList)
     TestBed.configureTestingModule({
       declarations: [TodoListComponent],
       providers: [
         {provide: ComponentFixtureAutoDetect, useValue: true},
+      ],
+      imports: [
+        UiModule,
       ]
     });
     fixture = TestBed.createComponent(TodoListComponent);
     component = fixture.componentInstance;
-    component.todoList$ = todoList$
+    component.todoList = todoList
     fixture.detectChanges()
   });
 
@@ -52,14 +53,14 @@ describe('TodoListComponent renders todo list correctly', () => {
     })
   });
 
-  it('add new item cause component rerender', async () => {
+  it('add new item cause component rerender', () => {
     const newTodo: Todo = {
       id: 3,
       title: 'New todo 3',
       description: 'New todo 3 description'
     }
-    todoList$.next([...todoList, newTodo])
-    await fixture.detectChanges();
+    component.todoList = [...todoList, newTodo]
+    fixture.detectChanges();
     let newTodoElements = getItemsListFromFixture(fixture)
     expect(newTodoElements?.length).toEqual(todoList.length + 1)
     let newTodoElement = getItemsListFromFixture(fixture)![2]
@@ -81,35 +82,7 @@ describe('TodoListComponent renders todo list correctly', () => {
     const indexOfItem = 1
     const btn = getDeleteBtn(fixture, indexOfItem);
     btn.click()
-    // btn.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     expect(component.onDelete.emit).toHaveBeenCalledWith(todoList[indexOfItem]);
-  });
-
-  it('expect controls to be enabled by default', async () => {
-    expect(todoList.length > 0).toBeTruthy()
-    for await (let item of todoList){
-      fixture.detectChanges();
-      await fixture.whenRenderingDone()
-      const indexOfItem = todoList.indexOf(item)
-      const delbtn = getDeleteBtn(fixture, indexOfItem);
-      const updbtn = getUpdateBtn(fixture, indexOfItem);
-      expect(delbtn.disabled).toBeFalsy()
-      expect(updbtn.disabled).toBeFalsy()
-    }
-  });
-
-  it('expect controls to be disabled', async () => {
-    component.controlsDisabled = true;
-    expect(todoList.length > 0).toBeTruthy()
-    for await (let item of todoList){
-      fixture.detectChanges();
-      await fixture.whenRenderingDone()
-      const indexOfItem = todoList.indexOf(item)
-      const delbtn = getDeleteBtn(fixture, indexOfItem);
-      const updbtn = getUpdateBtn(fixture, indexOfItem);
-      expect(delbtn.disabled).toBeTruthy()
-      expect(updbtn.disabled).toBeTruthy()
-    }
   });
 })

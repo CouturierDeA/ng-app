@@ -1,0 +1,17 @@
+@import "../../../../scss/core";
+
+.app-notifications {
+  position: fixed;
+  z-index: 4000;
+  top: 1rem;
+  right: 0;
+  padding: .5rem;
+  //overflow-y: visible;
+  //overflow-x: hidden;
+  //height: calc(100vh - #{$--header-min-height});
+  //max-height: 110vh;
+}
+
+app-notification-item {
+  display: block;
+}

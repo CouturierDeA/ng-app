@@ -1,0 +1,59 @@
+@import "../../../../scss/core";
+
+.app-notification {
+  @include message();
+  position: relative;
+  padding: 1rem 2.5rem 1rem 1rem;
+  border: 1px solid $--border-color;
+  border-radius: $border-radius;
+  font-size: $fs-14;
+  //animation: slidein;
+  //animation-duration: .4s;
+  background-color: $--body-bg;
+  max-width: 100%;
+  width: 330px;
+  box-shadow: $--box-shadow;
+
+  &.danger {
+    background-color: $--bg-danger-light;
+    color: $--text-danger;
+    border-color: $--bg-danger-light;
+  }
+
+  &.warning {
+    background-color: $--bg-warning-light;
+  }
+
+  &.success {
+    background-color: $--bg-success-light;
+  }
+
+  &.info {
+  }
+
+  //.app-notification__close {
+  &__close {
+    @include modal-close();
+    right: 0;
+    font-size: $fs-20;
+  }
+
+  //.app-notification__timer {
+  &__timer {
+    position: absolute;
+    right: .5rem;
+    bottom: .5rem;
+    font-size: $fs-12;
+    color: $--text-color-secondary;
+  }
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

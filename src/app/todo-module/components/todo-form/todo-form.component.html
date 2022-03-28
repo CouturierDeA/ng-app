@@ -1,10 +1,11 @@
-<form #form class="todo-form" *ngIf="todo" (ngSubmit)="onSubmit(todo)" #updateForm="ngForm">
+<form class="todo-form" *ngIf="todo" #updateForm="ngForm">
   <h4>{{formTitle}}</h4>
   <div class="control">
     <label for="title" class="label">Todo Name</label>
     <input #titleC="ngModel"
            id="title"
-           class="input todo-form-title"
+           class="app-input input todo-form-title"
+           data-id="todo-form-title"
            type="text"
            name="title"
            required
@@ -17,7 +18,7 @@
               fieldName: 'title'
            }"
            [(ngModel)]="todo.title"/>
-    <div *ngIf="titleC.errors" style="color: red">
+    <div *ngIf="titleC.errors" class="app-form-error">
       <span *ngIf="titleC.errors['required']">Title required</span>
       <span *ngIf="titleC.errors['minlength']">Title minlength {{titleC.errors['minlength']['requiredLength']}}</span>
       <span *ngIf="titleC.errors['uniqueValue']">Title is not unique</span>
@@ -27,38 +28,40 @@
     <label for="description" class="label">Todo description</label>
     <input #descrC="ngModel"
            id="description"
-           class="input todo-form-description"
+           class="app-input input todo-form-description"
            type="text"
            name="description"
            required
            minlength="3"
            maxlength="50"
            [(ngModel)]="todo.description"/>
-    <div *ngIf="descrC.errors" style="color: red">
+    <div *ngIf="descrC.errors" class="app-form-error">
       <span *ngIf="descrC.errors['required']">Description required</span>
       <span *ngIf="descrC.errors['minlength']">Description minlength {{descrC.errors['minlength']['requiredLength']}}</span>
     </div>
   </div>
-  <div class="control">
-    <label for="completed" class="label">Todo completed</label>
+  <div class="control completed">
     <input #complC="ngModel"
            id="completed"
-           class="input todo-form-completed"
+           class="todo-form-completed"
            type="checkbox"
            name="completed"
            [(ngModel)]="todo.completed"/>
+    <label for="completed" class="label">Todo completed</label>
     <div *ngIf="complC.errors" style="color: red">
       <span *ngIf="complC.errors['required']">Title required</span>
     </div>
   </div>
-  <div class="btn-control">
-    <button [disabled]="updateForm.pending || updateForm.invalid"
-            class="todo-submit"
-            type="submit">Submit
-    </button>
-    <button [disabled]="updateForm.pending"
-            class="todo-cancel-submit"
+  <div class="btn-controls">
+    <app-button [disabled]="updateForm.pending"
+            class="btn-control todo-cancel-submit"
             (click)="onCancel($event)">Cancel
-    </button>
+    </app-button>
+    <app-button [disabled]="updateForm.pending || updateForm.invalid"
+                class="btn-control todo-submit"
+                [viewType]="'success'"
+                (click)="onSubmit(todo)">
+      Submit
+    </app-button>
   </div>
 </form>

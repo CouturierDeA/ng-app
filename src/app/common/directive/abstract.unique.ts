@@ -6,7 +6,7 @@ import {debounceTime, distinctUntilChanged, first, map, switchMap} from "rxjs/op
 // https://jasonwatmore.com/post/2018/11/10/angular-7-template-driven-forms-validation-example
 
 /**
- * Пример директивы для асинхронной проверки уникальности какого-либо поля
+ * abstract directive to check any field is unique
  */
 @Directive({})
 export abstract class UniqueDirective implements Validator {

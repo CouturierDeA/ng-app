@@ -1,0 +1,84 @@
+@import "../../../../scss/core";
+
+.app-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  z-index: 901;
+
+  display: flex;
+  flex-direction: column;
+  //align-items: center;
+
+  //.app-modal .closed {
+  &.closed {
+    display: none;
+  }
+
+  //.app-modal-body {
+  &-body {
+    padding: 1.5rem;
+    background: #fff;
+    margin: 1.5rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    align-self: center;
+    -webkit-box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+    border-radius: $border-radius;
+
+    &.no-padding {
+      padding: 0;
+    }
+  }
+
+  //.app-modal-background {
+  &-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0;
+    z-index: 900;
+  }
+}
+
+body {
+  &.app-modal-open {
+    overflow: hidden;
+  }
+}
+
+app-modal {
+  &:last-of-type {
+    .app-modal-background {
+      opacity: 0.5;
+    }
+  }
+}
+
+.app-modal-wrap {
+  position: fixed;
+  z-index: 1000;
+
+  // .app-modal-wrap.dialog {
+  &.dialog {
+
+  }
+
+  // т.к. этот компонент используется и для нотификаций,
+  // то нотификации должны быть всегда поверх модальных окон
+  // .app-modal-wrap.notification {
+  &.notification {
+    z-index: 1002;
+  }
+}
+
+//.app-modal-background.visible {
+//  opacity: 0.75;
+//}

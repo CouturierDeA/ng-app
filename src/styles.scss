@@ -1,0 +1,175 @@
+/* You can add global styles to this file, and also import other style files */
+@import "app/common/scss/core";
+@import "app/common/scss/reboot";
+
+:root {
+  --bg-warning: #ffc107;
+  --bg-warning-hover: #{darken(#f5c73e, 12)};
+  --bg-danger: #{$red};
+  --bg-success: #{$success};
+  --body-bg: #{$body-color};
+  --body-bg-success: #{$success};
+  --body-bg-hover: #e1e1e1;
+  --text-color: #333333;
+  --text-success: #{$success};
+  --text-color-opposite: #{$body-color};
+  --text-color-secondary: #777;
+  --test-var: #{$red};
+  --text-danger: #{$red};
+  --text-warning: #FF9F00;
+  --border-color: #e1e1e1;
+  --link-color: #15559A;
+  --box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+  --border-color-light: #eaeaea;
+  --divider-color: rgba(141, 141, 141, .26);
+  --border-color-hover: #{$--text-color};
+  --header-min-height: 72px;
+  --footer-bg: #f2f4f1;
+  --footer-read-more-bg: #f4f4f4;
+  --footer-link-color: #f4f4f4;
+  --bg-danger-light: #FFE6E5;
+  --bg-warning-light: #FFF7E9;
+  --bg-success-light: #EBF7EC;
+  --bg-muted: #6c757d;
+  --bg-muted-light: #D0D0D0;
+  --border-muted-light: #D0D0D0;
+  --text-muted-opposite: #{$body-color};
+  //--text-muted: #D0D0D0;
+  --text-muted: #6c757d;
+  --border-muted: #6c757d;
+}
+
+//
+//body {
+//  @include page-font();
+//  margin: 0;
+//  box-sizing: border-box;
+//  overflow-x: hidden;
+//  background-color: $body-color;
+//}
+
+.active-link {
+  text-decoration: none;
+
+  &:hover {
+    cursor: default;
+    text-decoration: none !important;
+  }
+}
+
+.ng-shadow-div {
+  width: 100%;
+}
+
+.cup {
+  @include max-width();
+}
+
+.debug {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 200px;
+  overflow: auto;
+  background-color: $--body-bg;
+  color: $--text-color;
+  border-radius: $border-radius;
+  border: 1px solid $--border-color;
+  padding: 1rem;
+}
+
+.link--default {
+  color: $--text-color;
+  text-decoration: none;
+}
+
+.link--success {
+  color: $success;
+  text-decoration: none;
+}
+
+.app-btn,
+.--btn {
+  @include btn-mixin()
+}
+
+.app-input {
+  @include input();
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100vh;
+}
+
+.app-link {
+  @include link()
+}
+
+.app-section {
+  padding: 1rem;
+}
+
+.app-table-wrap {
+  @include table-wrap();
+}
+
+.app-container {
+  max-width: 1440px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.app-table {
+  @include table()
+}
+
+.app-form-error {
+  margin-top: .125rem;
+  color: $--text-danger;
+}
+
+.app-pagination {
+  @include pagination-layout();
+}
+
+.app-divider {
+  @include divider()
+}
+
+html, body {
+  height: 100%;
+}
+
+.app-dialog {
+  width: 400px;
+  max-width: 100%;
+  padding: 1.5rem 1.5rem 1rem;
+
+  //.app-dialog__title {
+  &__title {
+
+  }
+
+  //.app-dialog__controls {
+  &__controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    margin-left: -.5rem;
+    margin-right: -.5rem;
+  }
+
+  //.app-dialog__control {
+  &__control {
+    margin: .5rem;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

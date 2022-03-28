@@ -1,0 +1,18 @@
+<div class="app-modal-wrap {{componentType || ''}}"
+     data-id="app-modal-wrap"
+     [class.app-modal-blocked]="blocked"
+>
+  <div class="app-modal"
+       [class.closed]="!opened"
+       data-id="app-modal"
+       (click)="onWrapperClick($event)">
+    <div class="app-modal-body"
+         data-id="app-modal-body"
+         [class.no-padding]="noPadding"
+         [style.width]="width">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div data-id="app-modal-background"
+       class="app-modal-background" [class.visible]="overlayVisible"></div>
+</div>

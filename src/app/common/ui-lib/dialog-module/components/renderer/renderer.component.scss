@@ -1,0 +1,28 @@
+@import "../../../../scss/core";
+
+.app-notification {
+  padding: 1rem;
+
+  &.danger {
+    @include errorMessage();
+  }
+
+  &.warning {
+    //color: $--bg-warning;
+  }
+
+  &.success {
+
+  }
+
+  &.info {
+  }
+}
+//
+//notification {
+//  &:last-of-type {
+//    .app-modal-background {
+//      opacity: 0.75;
+//    }
+//  }
+//}

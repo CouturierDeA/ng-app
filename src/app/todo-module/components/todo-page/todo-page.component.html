@@ -1,45 +1,19 @@
-<section class="todo-page">
-  <h2>Todo page</h2>
-  <TodoSearch></TodoSearch>
-  <div class="todo-table">
-    <h4>Completed ({{todoStore.completedLength$ | async}})</h4>
-    <TodoList
-      (onUpdate)="showUpdateForm($event)"
-      (onDelete)="doDelete($event)"
-      [todoList$]="todoStore.completedTodoList$"
-      [controlsDisabled]="controlsDisabled$ | async"
-    >
-    </TodoList>
-    <h4>Uncompleted ({{todoStore.uncompletedLength$ | async}})</h4>
-    <TodoList
-      (onUpdate)="showUpdateForm($event)"
-      (onDelete)="doDelete($event)"
-      [todoList$]="todoStore.uncompletedTodoList$"
-      [controlsDisabled]="controlsDisabled$ | async"
-    >
-    </TodoList>
-  </div>
-  <div class="todo-item-controls">
-    <button class="todo-item-add"
-            *ngIf="!(addFormVisible$ | async)"
-            [disabled]="controlsDisabled$ | async"
-            (click)="showAddForm()">add new todo
-    </button>
-  </div>
-  <TodoForm class="todo-page-form todo-update-form"
-            [formTitle]="'Update todo'"
-            *ngIf="(updateFormVisible$ | async)"
-            [todo]="(newTodo$ | async)"
-            (cancelEvent)="onSubmitCancel()"
-            (submitEvent)="onUpdateTodo($event)"
-  >
-  </TodoForm>
-  <TodoForm class="todo-page-form todo-add-form"
-            [formTitle]="'Add new todo'"
-            *ngIf="(addFormVisible$ | async)"
-            [todo]="(newTodo$ | async)"
-            (cancelEvent)="onSubmitCancel()"
-            (submitEvent)="onAddTodo($event)"
-  >
-  </TodoForm>
+<section class="todo-page app-container">
+  <h2 class="todo-page__header">Todo list  ({{todoService.totalLength$ | async}} items)</h2>
+  <app-todo-search class="todo-page__search"></app-todo-search>
+  <h4 class="todo-page__heading">Completed ({{todoService.completedLength$ | async}})</h4>
+  <app-todo-list class="todo-page__list"
+                 (onUpdate)="todoService.onUpdateTodo($event)"
+                 (onDelete)="todoService.onDeleteTodo($event.id)"
+                 [todoList]="todoService.completedTodoList$ | async">
+  </app-todo-list>
+  <h4 class="todo-page__heading">Uncompleted ({{todoService.uncompletedLength$ | async}})</h4>
+  <app-todo-list class="todo-page__list"
+                 (onUpdate)="todoService.onUpdateTodo($event)"
+                 (onDelete)="todoService.onDeleteTodo($event.id)"
+                 [todoList]="todoService.uncompletedTodoList$ | async">
+  </app-todo-list>
+  <app-button [viewType]="'success'" class="todo-add" (click)="todoService.onAddTodo()">
+    Add new
+  </app-button>
 </section>

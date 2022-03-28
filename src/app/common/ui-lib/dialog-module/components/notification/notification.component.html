@@ -1,0 +1,14 @@
+<div class="app-notification {{type}}" [style.width]="width">
+  <button [disabled]="dialogControls?.isDisabled()" class="app-notification__close" (click)="cancel()">+</button>
+  <h4 *ngIf="title" class="app-notification__title {{type}}">
+    {{title}}
+  </h4>
+  <p *ngIf="message" class="app-notification__message {{type}}">
+    {{message}}
+  </p>
+
+  <noscript>
+    <p class="noscript">javascript вимкнено у Вашому браузері</p>
+    <p class="noscript">javascript is disabled in your browser</p>
+  </noscript>
+</div>

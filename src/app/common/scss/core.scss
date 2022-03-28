@@ -1,0 +1,494 @@
+@import "~bootstrap/scss/mixins/breakpoints";
+
+$body-color: white;
+
+$--test-var: var(--test-var);
+$--body-bg: var(--body-bg);
+$--text-danger: var(--text-danger);
+$--text-warning: var(--text-warning);
+$--bg-warning: var(--bg-warning);
+$--bg-warning-hover: var(--bg-warning-hover);
+$--bg-danger: var(--bg-danger);
+$--bg-success: var(--bg-success);
+$--body-bg-hover: var(--body-bg-hover);
+$--text-color: var(--text-color);
+$--text-success: var(--text-success);
+$--text-muted: var(--text-muted);
+$--text-color-opposite: var(--text-color-opposite);
+$--text-color-secondary: var(--text-color-secondary);
+$--body-bg-tiny: rgba(0, 0, 0, .09);
+$--body-bg-success: var(--body-bg-success);
+$--border-color: var(--border-color);
+$--link-color: var(--link-color);
+$--box-shadow: var(--box-shadow);
+$--border-color-light: var(--border-color-light);
+$--divider-color: var(--divider-color);
+$--border-color-hover: var(--border-color-hover);
+$--header-min-height: var(--header-min-height);
+$--footer-bg: var(--footer-bg);
+$--footer-read-more-bg: var(--footer-read-more-bg);
+$--footer-link-color: var(--footer-link-color);
+$--bg-danger-light: var(--bg-danger-light);
+$--bg-warning-light: var(--bg-warning-light);
+$--bg-success-light: var(--bg-success-light);
+$--text-muted-opposite: var(--text-muted-opposite);
+$--text-muted: var(--text-muted);
+$--border-muted: var(--border-muted);
+$--border-muted-light: var(--border-muted-light);
+$--bg-muted: var(--bg-muted);
+$--bg-muted-light: var(--bg-muted-light);
+$success: #36ad39;
+$loader-color: lighten($success, 7);
+
+$grid-breakpoints: (
+  nxs: 0,
+  nsm: 768px,
+  nmd: 1024px,
+  nlg: 1280px,
+  nld: 1360px,
+  nxl: 1680px,
+) !default;
+$text-color: #333;
+
+$text-blue: #31708f;
+$text-blue2: #15559A;
+$bg-blue-tiny: rgba(0, 108, 224, 0.1);
+$border-black: rgba(0, 0, 0, 0.2);
+$border-black-02: rgba(0, 0, 0, 0.2);
+$text-black-black-06: rgba(0, 0, 0, 0.6);
+$text-black-black-05: rgba(0, 0, 0, 0.5);
+$text-black-09: rgba(0, 0, 0, 0.9); // Основной текст, фокусный при нажатии (90%)
+//$text-black: rgba(0, 0, 0, 0.8); // Основной текст, фокусный при нажатии (80%)
+
+$bg-success-tinny: rgba(54, 173, 57, .1);
+$text-muted: #6c757d;
+$bg-muted: #6c757d; // Неактивные кнопки иконки
+$red: #eb5757;
+$successDark: #348E36;
+
+$fs-11: .6875rem;
+$fs-12: .75rem;
+$fs-13: .875rem;
+$fs-14: .9rem;
+$fs-15: .92rem;
+$fs-16: 1rem;
+$fs-17: 1.04rem;
+$fs-18: 1.13rem;
+$fs-19: 1.125rem;
+$fs-20: 1.25rem;
+$fs-21: 1.3125rem;
+$fs-22: 1.375rem;
+$fs-24: 1.5rem;
+$fs-30: 1.875rem;
+$fs-36: 2.25rem;
+
+$transition-base: ease-in-out;
+$transition: .2s ease-in-out;
+$transition-core: $transition;
+$border-radius: 3px;
+$content-width: 1440px;
+
+@mixin page-font() {
+  font-family: Tahoma, Arial, DejaVu Serif, Helvetica, Georgia, serif;
+}
+
+@mixin modal-body() {
+  position: relative;
+  max-width: 100%;
+}
+
+@mixin modal-title() {
+  position: relative;
+  display: block;
+  margin-bottom: 0;
+}
+
+@mixin modal-close() {
+  @include btn-reset();
+  position: absolute;
+  right: 1rem;
+  z-index: 1;
+
+  line-height: 1.5;
+  font-size: 1.75rem;
+  transform: rotate(45deg);
+  margin-top: -.5rem;
+  user-select: none;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@mixin triangle($width, $color) {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: #{$width} #{$width} 0 #{$width};
+  border-color: #{$color} transparent transparent transparent;
+}
+
+@mixin max-width($centered: true) {
+  max-width: $content-width;
+
+  @if $centered {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@mixin btn-reset() {
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  outline: none !important;
+  text-decoration: none;
+  border: none;
+}
+
+%disabled {
+  &:disabled,
+  &.is-disabled {
+    background-color: transparent;
+    border-color: transparent;
+    color: $text-muted;
+    fill: $text-muted;
+    cursor: not-allowed;
+  }
+}
+
+%el-btn-base {
+  min-height: 2.5rem;
+  padding: .25rem 1.5rem;
+}
+
+
+@mixin btn-mixin() {
+  @include btn-reset();
+  box-sizing: border-box;
+  border-radius: $border-radius;
+  min-width: auto;
+  margin: 0;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  cursor: pointer;
+  font-size: $fs-14;
+  line-height: $fs-20;
+  transition: background-color $transition-core, border $transition-core, color $transition-core;
+  min-height: 1.5rem;
+  padding: .25rem .5rem;
+
+  color: $--text-color;
+  fill: $--text-color;
+  border: 1px solid $--text-color;
+
+  &.block {
+    display: block;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $--body-bg-tiny;
+  }
+
+  &.big {
+    min-height: 2.5rem;
+    padding: .44rem 1rem;
+    font-size: $fs-20;
+    line-height: 1;
+  }
+
+  &.link {
+    color: $text-blue2;
+    font-weight: $fs-14;
+    line-height: $fs-22;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &.outline-success {
+    color: $success;
+    fill: $success;
+    border: 1px solid $success;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $bg-success-tinny;
+      color: $success;
+    }
+  }
+
+  &.no-border {
+    color: $success;
+    fill: $success;
+    border: 1px solid transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: transparent;
+      color: $success;
+    }
+  }
+
+  &.success {
+    color: $--text-color-opposite;
+    fill: $--text-color-opposite;
+    background-color: $success;
+    border: 1px solid transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $successDark;
+    }
+  }
+
+  &.primary {
+  }
+
+  &.secondary {
+
+  }
+
+  &.warning {
+    background-color: $--bg-warning;
+    border-color: $--bg-warning;
+
+    &:hover {
+      background-color: $--bg-warning-hover;
+      border-color: $--bg-warning-hover;
+    }
+  }
+
+  &.danger {
+    background-color: $--bg-danger;
+    border-color: $--bg-danger;
+    color: $--text-color-opposite;
+  }
+
+  &.disabled,
+  &:disabled {
+    color: $--text-muted !important;
+    background-color: $--bg-muted-light !important;
+    border-color: $--border-muted-light !important;
+    cursor: not-allowed;
+  }
+
+  &.text {
+    color: $--text-color;
+    border: none;
+    padding: 0;
+
+    &:hover {
+      background-color: initial;
+    }
+  }
+}
+
+@mixin label() {
+  margin-bottom: .25rem;
+  display: inline-flex;
+}
+
+@mixin link() {
+  color: $--link-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@mixin input() {
+  min-height: 1.5rem;
+  border-radius: $border-radius;
+  border: 1px solid $--border-color;
+  padding: .25rem .5rem;
+
+  &:focus {
+    border: 1px solid $--border-color-hover;
+  }
+  &.big,
+  &.input--big {
+    padding: .5rem .75rem;
+    min-height: 2.5rem;
+  }
+}
+
+@mixin section() {
+
+}
+
+@mixin table-wrap() {
+  overflow-x: auto;
+}
+
+@mixin table() {
+  position: relative;
+  border-collapse: collapse;
+  width: 100%;
+
+  th {
+    padding: .5rem;
+    background-color: $--body-bg;
+    color: $--text-color-secondary;
+  }
+
+  td {
+    padding: .5rem;
+    text-align: center;
+  }
+
+  &.--bordered {
+    border-top: 1px solid $--border-color;
+
+    th {
+      border-bottom: 1px solid $--border-color;
+
+      & {
+        border-right: 1px solid $--border-color;
+      }
+
+      &:first-of-type {
+        border-left: 1px solid $--border-color;
+      }
+    }
+
+    td {
+      border-bottom: 1px solid $--border-color;
+
+      & {
+        border-right: 1px solid $--border-color;
+      }
+
+      &:first-of-type {
+        border-left: 1px solid $--border-color;
+      }
+    }
+  }
+}
+
+@mixin lds-spinner($color: $success, $width:64px, $height: 64px, $thick: 3px, $length:14px, $time: .9s) {
+
+  & {
+    color: $color;
+    display: inline-block;
+    position: relative;
+    width: $width;
+    height: $height;
+  }
+  & div {
+    transform-origin: $width*.5 $height*.5;
+    animation: lds-spinner $time linear infinite;
+  }
+  & div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: ($width*.5)-3;
+    width: $thick;
+    height: $length;
+    border-radius: 5px;
+    background: $color;
+  }
+  //@for $i from 1 through 8 {
+  //  & div:nth-child(#{$i}) {
+  //    transform: rotate(#{360 - 360/$i}deg);
+  //    animation-delay: #{} -1.1s;
+  //  }
+  //}
+  & div:nth-child(1) {
+    transform: rotate(0deg);
+    animation-delay: -.9s;
+  }
+  & div:nth-child(2) {
+    transform: rotate(45deg);
+    animation-delay: -.8s;
+  }
+  & div:nth-child(3) {
+    transform: rotate(90deg);
+    animation-delay: -0.7s;
+  }
+  & div:nth-child(4) {
+    transform: rotate(135deg);
+    animation-delay: -0.6s;
+  }
+  & div:nth-child(5) {
+    transform: rotate(180deg);
+    animation-delay: -0.5s;
+  }
+  & div:nth-child(6) {
+    transform: rotate(225deg);
+    animation-delay: -0.4s;
+  }
+  & div:nth-child(7) {
+    transform: rotate(270deg);
+    animation-delay: -0.3s;
+  }
+  & div:nth-child(8) {
+    transform: rotate(315deg);
+    animation-delay: -0.2s;
+  }
+  & div:nth-child(9) {
+    transform: rotate(360deg);
+    animation-delay: -0.1s;
+  }
+
+  @keyframes lds-spinner {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+@mixin font-roboto($important: false) {
+  @if $important {
+    font-family: 'Roboto', sans-serif !important;
+  } @else {
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+@mixin errorMessage() {
+  word-break: break-word;
+  color: $--text-danger;
+  margin-top: .5rem;
+}
+
+@mixin message() {
+  word-break: break-word;
+}
+
+@mixin divider() {
+  border: none;
+  border-bottom: 1px solid $--border-color;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@mixin pagination-layout() {
+  display: table;
+  &.--left {
+    margin-right: auto;
+  }
+  &.--right {
+    margin-left: auto;
+  }
+  &.--center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}

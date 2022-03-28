@@ -1,0 +1,48 @@
+@import "../../../../scss/core";
+
+.app-notification {
+  @include modal-body();
+  padding: 2rem 1.5rem 1.5rem;
+
+  &.danger {
+
+  }
+
+  &.warning {
+    //color: $--bg-warning;
+  }
+
+  &.success {
+
+  }
+
+  &.info {
+  }
+
+  //.app-notification__title {
+  &__title {
+    @include modal-title();
+    margin: .25rem 0 0;
+    font-size: $fs-18;
+    line-height: 1.5;
+  }
+  //.app-notification__message {
+  &__message {
+    font-size: $fs-18;
+    line-height: 1.5;
+    margin: .25rem 0 0;
+    &.danger {
+      @include errorMessage();
+    }
+  }
+  //.app-notification__close {
+  &__close {
+    @include modal-close();
+    top: .5rem;
+    right: .5rem;
+  }
+}
+
+.noscript {
+  margin: .5rem 0 0;
+}

@@ -1,7 +1,40 @@
-.todo-page-form {
-  display: block;
-  margin-top: 1rem;
-}
-.todo-item-controls {
-  margin-top: 1rem;
+.todo {
+  //.todo-page {
+  &-page {
+    padding: 1.5rem;
+    //.todo-page-form {
+    &-form {
+      display: block;
+      margin-top: 1rem;
+    }
+
+    //.todo-page__search {
+    &__search {
+      display: table;
+      margin-left: auto;
+    }
+
+    //.todo-todo__list {
+    &__list {
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    //.todo-page__header {
+    &__header {
+      text-align: center;
+    }
+
+    //.todo-page__heading:not(:first-child) {
+    &__heading:not(:first-child) {
+      margin-top: 1.5rem;
+    }
+  }
+
+  //.todo-add {
+  &-add {
+    margin-top: 2rem;
+    display: table;
+    margin-left: auto;
+  }
 }

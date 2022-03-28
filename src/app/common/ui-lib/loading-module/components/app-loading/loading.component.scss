@@ -1,0 +1,133 @@
+@import "../../../../scss/core";
+
+@mixin lds-spinner($color: $success, $width:64px, $height: 64px, $thick: 3px, $length:14px, $time: .9s) {
+  & {
+    color: $color;
+    display: inline-block;
+    position: relative;
+    width: $width;
+    height: $height;
+  }
+  & div {
+    transform-origin: $width *.5 $height * .5;
+    animation: lds-spinner $time linear infinite;
+  }
+  & div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: $width * .5 - 3;
+    width: $thick;
+    height: $length;
+    border-radius: 5px;
+    background: $color;
+  }
+  //@for $i from 1 through 8 {
+  //  & div:nth-child(#{$i}) {
+  //    transform: rotate(#{360 - 360/$i}deg);
+  //    animation-delay: #{} -1.1s;
+  //  }
+  //}
+  & div:nth-child(1) {
+    transform: rotate(0deg);
+    animation-delay: -.9s;
+  }
+  & div:nth-child(2) {
+    transform: rotate(45deg);
+    animation-delay: -.8s;
+  }
+  & div:nth-child(3) {
+    transform: rotate(90deg);
+    animation-delay: -0.7s;
+  }
+  & div:nth-child(4) {
+    transform: rotate(135deg);
+    animation-delay: -0.6s;
+  }
+  & div:nth-child(5) {
+    transform: rotate(180deg);
+    animation-delay: -0.5s;
+  }
+  & div:nth-child(6) {
+    transform: rotate(225deg);
+    animation-delay: -0.4s;
+  }
+  & div:nth-child(7) {
+    transform: rotate(270deg);
+    animation-delay: -0.3s;
+  }
+  & div:nth-child(8) {
+    transform: rotate(315deg);
+    animation-delay: -0.2s;
+  }
+  & div:nth-child(9) {
+    transform: rotate(360deg);
+    animation-delay: -0.1s;
+  }
+
+  @keyframes lds-spinner {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+}
+
+@mixin font-roboto($important: false) {
+  @if $important {
+    font-family: 'Roboto', sans-serif !important;
+  } @else {
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+.loader {
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility $transition, opacity $transition;
+  pointer-events: none;
+
+  &.fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.absolute {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+
+    &:not(.non-blocking) {
+      pointer-events: auto;
+      cursor: not-allowed;
+    }
+  }
+
+  .spinner {
+    @include lds-spinner($color: $loader-color, $width: 80px, $height: 80px, $thick: 6px, $length: 20px, $time: 1s);
+  }
+
+  .non-blocking {
+    pointer-events: none;
+    cursor: default;
+  }
+}

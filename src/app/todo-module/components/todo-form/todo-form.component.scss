@@ -1,26 +1,48 @@
-.btn-control,
+.todo-form {
+  width: 400px;
+  max-width: 100%;
+  padding: 1.5rem 1.5rem;
+}
+
+.btn-controls,
 .control {
   & + & {
-    margin-top: .75rem;
+    margin-top: 1rem;
   }
 }
 
-.btn-control {
+.completed {
+  display: flex;
+  align-items: baseline;
+}
+
+.todo-form-completed {
+  margin-right: .5rem;
+}
+
+.btn-controls {
   margin-left: -.25rem;
   margin-top: -.25rem;
-  > button {
-    margin: .25rem;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.btn-control {
+  margin-left: .25rem;
+  margin-right: .25rem;
 }
 
 .label {
   margin-bottom: .25rem;
   display: inline-block;
+  cursor: pointer;
 }
 
 .input {
   display: block;
   max-width: 100%;
+  width: 100%;
 }
 
 .todo-form-title {

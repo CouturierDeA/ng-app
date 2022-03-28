@@ -5,8 +5,11 @@ import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {getDescriptionInput, getTitleInput, getTodoSubmitBtn, setInputValue} from "../../todo-list/specs/utils";
 import {UniqueValueDirective} from "../../../directives/validations/unique.directive";
-import {TodoService} from "../../../services/todo.service";
-import {getTodoServiceMocks} from "../../todo-page/specs/utils";
+import {HttpTodoService} from "../../../services/http-todo.service";
+import {UiEffectsService} from "../../../../common/services/ui-effects/ui-effects.service";
+import {UiEffectsServiceForTesting} from "../../../../common/services/ui-effects/ui-effects-testing.service";
+import {of} from "rxjs";
+import {UiModule} from "../../../../common/ui-lib/ui.module";
 
 describe('Todo form tests', () => {
   let component: TodoFormComponent;
@@ -30,16 +33,28 @@ describe('Todo form tests', () => {
       declarations: [TodoFormComponent, UniqueValueDirective],
       providers: [
         {provide: ComponentFixtureAutoDetect, useValue: true},
-        {provide: TodoService, useValue: getTodoServiceMocks().service},
+        {
+          provide: HttpTodoService, useValue: {
+            checkUnique(value: string, fieldName: string, entityId?: number) {
+              return of(true)
+            }
+          }
+        },
+        {provide: UiEffectsService, useClass: UiEffectsServiceForTesting},
       ],
       imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        UiModule,
       ],
     });
     fixture = TestBed.createComponent(TodoFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges()
+  });
+
+  it('expect fixture to be defined', () => {
+    expect(fixture).toBeDefined();
   });
 
   it('expect fixture to be defined', () => {
@@ -67,7 +82,7 @@ describe('Todo form tests', () => {
 
 
   it('Emits new or updated item after user input and submit', fakeAsync(async () => {
-    spyOn(component.submitEvent, 'emit');
+    spyOn(component.resolveEvent, 'emit');
     component.todo = newTodo
     fixture.detectChanges();
     await fixture.whenStable()
@@ -83,11 +98,11 @@ describe('Todo form tests', () => {
 
     const btn = getTodoSubmitBtn(fixture);
     expect(btn).toBeDefined()
+    expect(component.updateForm.invalid).toBeFalsy()
+    expect(btn.disabled).toBeFalsy()
     btn.click()
     tick(1000)
-    expect(component.form.invalid).toBeFalsy()
-    expect(btn.disabled).toBeFalsy()
-    expect(component.submitEvent.emit).toHaveBeenCalledWith({
+    expect(component.resolveEvent.emit).toHaveBeenCalledWith({
       id: newTodo.id,
       title: tt,
       description: dt,
