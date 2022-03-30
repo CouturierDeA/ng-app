@@ -1,6 +1,6 @@
 import {needToShowError} from "./need-to-show-error";
 describe('AuthFormComponent controller unit tests', () => {
-  it('needShowError показывает сообщения об ошибке если NgModel touched || dirty', () => {
+  it('needShowError shows error messages if NgModel touched or dirty', () => {
     expect(
       needToShowError({
         errors: {},
@@ -10,7 +10,7 @@ describe('AuthFormComponent controller unit tests', () => {
     ).toBeTruthy()
   });
 
-  it('needShowError не показывает сообщения об ошибке если NgModel !touched & !dirty', () => {
+  it('needShowError does not show an error message if NgModel !touched & !dirty', () => {
     expect(
       needToShowError({
         errors: {},
@@ -20,7 +20,7 @@ describe('AuthFormComponent controller unit tests', () => {
     ).toBeFalsy()
   });
 
-  it('needShowError показывает сообщения об ошибке если NgForm submitted', () => {
+  it('needShowError shows error messages if NgForm submitted', () => {
     expect(
       needToShowError(
         {

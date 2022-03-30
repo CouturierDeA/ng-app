@@ -8,7 +8,7 @@ export interface TodoFormComponentProps {
 }
 
 /**
- * Provides form to create or edit entity
+ * Provides form to create or edit to do
  */
 @Component({
   selector: 'TodoForm',
