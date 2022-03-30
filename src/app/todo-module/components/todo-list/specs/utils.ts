@@ -26,12 +26,6 @@ export const getDeleteBtn = <T>(fixture: ComponentFixture<T>, index: number): HT
 export const getAddBtn = <T>(fixture: ComponentFixture<T>): HTMLButtonElement => {
   return fixture.nativeElement.querySelector('.todo-add')
 }
-export const getTodoAddForm = <T>(fixture: ComponentFixture<T>): HTMLElement => {
-  return fixture.nativeElement.querySelector('.todo-add-form')
-}
-export const getTodoUpdateForm = <T>(fixture: ComponentFixture<T>): HTMLElement => {
-  return fixture.nativeElement.querySelector('.todo-update-form')
-}
 
 export const getUpdateBtn = <T>(fixture: ComponentFixture<T>, index: number): HTMLButtonElement => {
   return fixture.nativeElement.querySelectorAll('.todo-item-update')[index]

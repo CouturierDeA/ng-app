@@ -5,8 +5,9 @@ import {
   ElementRef, AfterViewInit
 } from '@angular/core';
 import {fromEvent, Subscription} from "rxjs";
-import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs/operators";
 import {TodoCrudService} from "../../services/todo-crud.service";
+import {TodoStoreService} from "../../services/todo-store.service";
 
 @Component({
   selector: 'app-todo-search',
@@ -14,6 +15,7 @@ import {TodoCrudService} from "../../services/todo-crud.service";
 })
 export class TodoSearchComponent implements AfterViewInit, OnDestroy {
   constructor(
+    private store: TodoStoreService,
     private todoService: TodoCrudService
   ) {
   }
@@ -21,14 +23,16 @@ export class TodoSearchComponent implements AfterViewInit, OnDestroy {
   @ViewChild('input', {read: ElementRef})
   inputRef!: ElementRef<HTMLInputElement>;
   inputSub!: Subscription
-  searchByTitle$ = this.todoService.searchByTitle$
+  searchByTitle$ = this.store.searchByTitle$
 
   ngAfterViewInit() {
     this.inputSub = fromEvent(this.inputRef.nativeElement, 'input').pipe(
       map(event => (event.target as HTMLInputElement)?.value),
       distinctUntilChanged(),
       debounceTime(500),
-    ).subscribe(title => this.todoService.triggerSearch(title))
+      tap(title => this.searchByTitle$.next(title)),
+      switchMap(_ => this.todoService.readTodoListPipe()),
+    ).subscribe()
   }
 
   ngOnDestroy() {

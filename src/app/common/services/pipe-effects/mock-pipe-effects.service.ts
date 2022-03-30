@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {switchMap} from "rxjs/operators";
+import {switchMap, tap} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 
 @Injectable()
-export class UiEffectsServiceForTesting {
+export class MockPipeEffectsService {
   withEffects<T>() {
     return (source: Observable<T>) =>
       of({}).pipe(
@@ -20,5 +20,13 @@ export class UiEffectsServiceForTesting {
     return (source: Observable<T>) =>
       of({}).pipe(
         switchMap((o) => source));
+  }
+
+  withSuccessNotification<T>(getMessage: (result: T) => string) {
+    return (source: Observable<T>) =>
+      of({}).pipe(
+        switchMap((o) => source.pipe(
+          tap(result => getMessage(result))
+        )));
   }
 }

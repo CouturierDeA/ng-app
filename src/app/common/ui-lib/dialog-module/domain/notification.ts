@@ -13,12 +13,12 @@ export interface NotificationData {
   type?: NotificationType
 }
 
-export interface NotificationParams<ComponentOptionsType = any, ResolverType = any> {
+export interface NotificationParams<ComponentPropsType = any, ResolvingType = any> {
   escapeModal?: boolean
-  resolver?: Subject<ResolverType>
+  resolver?: Subject<ResolvingType>
   injector?: Injector
   width?: string
   componentType?: 'notification' | 'dialog'
-  component: Type<DialogComponent & ComponentOptionsType> | Type<DialogComponent>
-  componentOptions?: ComponentOptionsType,
+  component: Type<DialogComponent & ComponentPropsType> | Type<DialogComponent>
+  componentOptions?: ComponentPropsType,
 }

@@ -15,16 +15,17 @@ import {
 import {TodoSearchComponent} from "../../todo-search/todo-search.component";
 import {Todo} from "../../../domain/todo";
 import {TodoModalsService} from "../../../services/todo-modals.service";
-import {UiEffectsServiceForTesting} from "../../../../common/services/ui-effects/ui-effects-testing.service";
+import {MockPipeEffectsService} from "../../../../common/services/pipe-effects/mock-pipe-effects.service";
 import {NotificationService} from "../../../../common/ui-lib/notification-module/services/notification.service";
 import {ConfirmService} from "../../../../common/ui-lib/dialog-module/services/confirm.service";
 import {of} from "rxjs";
 import {DialogService} from "../../../../common/ui-lib/dialog-module/services/dialog.service";
-import {UiEffectsService} from "../../../../common/services/ui-effects/ui-effects.service";
+import {PipeEffectsService} from "../../../../common/services/pipe-effects/pipe-effects.service";
 import {UiModule} from "../../../../common/ui-lib/ui.module";
 import {HttpClient} from "@angular/common/http";
 import {Subject} from "rxjs";
 import {MockHttpTodoService} from "../../../services/mock-http-todo.service";
+import {TodoStoreService} from "../../../services/todo-store.service";
 
 describe('TodoCrudService integration with TodoPageComponent, TodoSearchComponent, TodoListComponent',
   () => {
@@ -68,9 +69,9 @@ describe('TodoCrudService integration with TodoPageComponent, TodoSearchComponen
           HttpTodoService,
           TodoModalsService,
           TodoCrudService,
+          TodoStoreService,
           NotificationService,
-          {provide: UiEffectsService, useClass: UiEffectsServiceForTesting},
-          {provide: HttpClient, useValue: {}},
+          {provide: PipeEffectsService, useClass: MockPipeEffectsService},
           {provide: HttpTodoService, useClass: MockHttpTodoService},
           {provide: 'mockTodoList', useValue: todoList},
           {provide: DialogService, useValue: {}},

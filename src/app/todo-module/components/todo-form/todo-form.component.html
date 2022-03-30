@@ -37,7 +37,8 @@
            [(ngModel)]="todo.description"/>
     <div *ngIf="descrC.errors" class="app-form-error">
       <span *ngIf="descrC.errors['required']">Description required</span>
-      <span *ngIf="descrC.errors['minlength']">Description minlength {{descrC.errors['minlength']['requiredLength']}}</span>
+      <span
+        *ngIf="descrC.errors['minlength']">Description minlength {{descrC.errors['minlength']['requiredLength']}}</span>
     </div>
   </div>
   <div class="control completed">
@@ -54,12 +55,15 @@
   </div>
   <div class="btn-controls">
     <app-button [disabled]="updateForm.pending"
-            class="btn-control todo-cancel-submit"
-            (click)="onCancel($event)">Cancel
+                class="btn-control todo-cancel-submit"
+                [type]="'button'"
+                (click)="onCancel($event)">Cancel
     </app-button>
     <app-button [disabled]="updateForm.pending || updateForm.invalid"
                 class="btn-control todo-submit"
                 [viewType]="'success'"
+                [type]="'button'"
+                [dataId]="'submit-todo'"
                 (click)="onSubmit(todo)">
       Submit
     </app-button>

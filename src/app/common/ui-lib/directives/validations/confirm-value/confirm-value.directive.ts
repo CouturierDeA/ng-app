@@ -7,8 +7,8 @@ import {
 } from "@angular/forms";
 
 /**
- * Директива для проверки пользовательского ввода
- * проверяет, что пользователь ввел значение, равное confirmValue
+ * Checks if user input same as given confirmValue
+ * (For example user Password confirmation etc)
  */
 @Directive({
   selector: '[confirmValue]',

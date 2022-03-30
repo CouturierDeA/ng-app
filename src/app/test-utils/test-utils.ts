@@ -31,9 +31,9 @@ export function getByDataId<T>(fixture: ComponentFixture<T>, dataId: string) {
 }
 
 //
-// export function getAllByDataId<T>(fixture: ComponentFixture<T>, dataId: string) {
-//   return fixture.nativeElement.querySelectorAll(`[data-id="${dataId}"]`) || undefined
-// }
+export function getAllByDataId<T>(fixture: ComponentFixture<T>, dataId: string) {
+  return fixture.nativeElement.querySelectorAll(`[data-id="${dataId}"]`) || undefined
+}
 
 export function getByDataIdFromDebugElement<T>(debugElement: DebugElement, dataId: string) {
   return debugElement.nativeElement.querySelector(`[data-id="${dataId}"]`) || undefined

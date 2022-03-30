@@ -3,8 +3,6 @@ import {AbstractControl, ValidationErrors, Validator} from "@angular/forms";
 import {Observable, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, first, map, switchMap} from "rxjs/operators";
 
-// https://jasonwatmore.com/post/2018/11/10/angular-7-template-driven-forms-validation-example
-
 /**
  * abstract directive to check any field is unique
  */

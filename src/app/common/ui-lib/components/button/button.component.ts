@@ -18,6 +18,8 @@ export class ButtonComponent {
   @Input()
   disabled?: any
   @Input()
+  type?: 'button' | 'reset' | 'submit'
+  @Input()
   viewType?: 'success'
     | 'warning'
     | 'danger'

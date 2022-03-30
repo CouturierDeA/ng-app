@@ -15,6 +15,7 @@ import {UniqueValueDirective} from "./directives/validations/unique.directive";
 import {TodoRoutingModule} from "./todo-routing.module";
 import {UiModule} from "../common/ui-lib/ui.module";
 import {TodoModalsService} from "./services/todo-modals.service";
+import {TodoStoreService} from "./services/todo-store.service";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {TodoModalsService} from "./services/todo-modals.service";
     // uncomment this line and import MockHttpTodoService to use mocks in runtime
     // {provide: HttpTodoService, useClass: MockHttpTodoService},
     TodoCrudService,
+    TodoStoreService,
     TodoModalsService,
   ],
 })

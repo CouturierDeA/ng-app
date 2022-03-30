@@ -1,4 +1,4 @@
-import {NotificationService, NotifyOptions} from "../../../notification-module/services/notification.service";
+import {NotificationService} from "../../../notification-module/services/notification.service";
 import {Subject} from "rxjs";
 import {DialogService} from "../dialog.service";
 import {NotificationParams} from "../../domain/notification";

@@ -1,4 +1,4 @@
-import {ComponentFixture, ComponentFixtureAutoDetect, TestBed} from "@angular/core/testing";
+import {ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, TestBed, tick} from "@angular/core/testing";
 import {CommonModule} from "@angular/common";
 import {DialogListComponent} from "../components/dialog-list/dialog-list.component";
 import {NotificationComponent} from "../components/notification/notification.component";
@@ -15,8 +15,9 @@ import {
 } from "../../../../test-utils/test-utils";
 import {DialogService} from "../services/dialog.service";
 import {DialogComponent} from "../../domain/dialog-component";
-import {Subject} from "rxjs";
 import {NotificationParams} from "../domain/notification";
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'DialogsHosting',
@@ -68,13 +69,12 @@ export class TestDialog2Component implements DialogComponent<string> {
   cancelEvent = new EventEmitter<void>()
 }
 
-describe('DialogModule, его компоненты и сервисы работают корректно', () => {
+describe('DialogModule works correctly', () => {
   let fixture: ComponentFixture<DialogsHosting>
   let logoutBtn: any
   let component: DialogsHosting
   let ds: DialogService
 
-  let findDialog = () => findComponent(fixture, 'testdialog')
   let findDialogs = () => findComponents(fixture, 'testdialog')
 
   beforeEach(async () => {
@@ -87,7 +87,7 @@ describe('DialogModule, его компоненты и сервисы работ
         RendererComponent,
         ModalComponent,
         TestDialogComponent,
-        DialogsHosting
+        DialogsHosting,
       ],
       providers: [
         {provide: ComponentFixtureAutoDetect, useValue: true},
@@ -96,6 +96,7 @@ describe('DialogModule, его компоненты и сервисы работ
       ],
       imports: [
         CommonModule,
+        NoopAnimationsModule
       ],
     });
     fixture = TestBed.createComponent(DialogsHosting);
@@ -104,23 +105,22 @@ describe('DialogModule, его компоненты и сервисы работ
     logoutBtn = getByDataId(fixture, 'app-logout')
   });
 
-  it(`Тестовый хостинг-компонент инициализируется `, () => {
+  it(`Hosting component initializes correctly `, () => {
     expect(component).toBeDefined()
   })
 
-  it(`Тестовый хостинг-компонент рисует тестируемый dialoglist `, () => {
+  it(`Hosting component renders app-dialog-list component`, () => {
     expect(findComponent(fixture, 'app-dialog-list')).toBeDefined()
   })
 
-  describe('DialogService работает корректно', () => {
-    it(`по умолчанию store пустой `, () => {
+  describe('DialogService store works correctly', () => {
+    it(`dialog list length is 0 by default `, () => {
       expect(ds.dialogList$.getValue().length).toEqual(0)
     })
 
-    it(`удаляет модальное окно из store `, () => {
+    it(`removes dialogs from the store `, () => {
       const n1: NotificationParams = {
         component: TestDialogComponent,
-        // renderComponent: (ref)=> ref.createComponent(TestDialogComponent)
       }
       const n2: NotificationParams = {
         component: TestDialogComponent
@@ -155,9 +155,9 @@ describe('DialogModule, его компоненты и сервисы работ
     })
   })
 
-  describe('компонент, передаваемый в addDialog работает корректно', () => {
+  describe('DialogService renders dialog components correctly ', () => {
 
-    it(`рендерит передаваемые входные параметры `, () => {
+    it(`Render dialogs correctly`, () => {
       let TEST_MESSAGE = 'TEST 1 2'
       ds.addDialog({
         component: TestDialogComponent,
@@ -170,8 +170,7 @@ describe('DialogModule, его компоненты и сервисы работ
       expect((testDialogMessage as HTMLElement).innerText).toContain(TEST_MESSAGE)
     })
 
-    it(`TestDialog, отрендеренный через DialogService,
-    имеет возможность закрыть самого себя через resolver`, () => {
+    it(`Can spawn and close dialog wia DialogService`, () => {
       ds.addDialog({
         component: TestDialogComponent
       })
@@ -184,8 +183,8 @@ describe('DialogModule, его компоненты и сервисы работ
     })
   })
 
-  describe('addDialog возвращает Subject, с помощью которого можно: ', () => {
-    it(`программно закрыть (отменить) dialog (Subject.complete)`, () => {
+  describe('addDialog method returns a controllable subject', () => {
+    it(`Dialog closing programmatically with Subject.complete`, () => {
       const dialog$ = ds.addDialog({
         component: TestDialogComponent
       })
@@ -195,7 +194,7 @@ describe('DialogModule, его компоненты и сервисы работ
       expect(dialog$.isStopped).toBeTruthy()
     })
 
-    it(`программно закрыть (успешно) dialog Subject.next`, () => {
+    it(`Dialog closing programmatically with Subject.next`, () => {
       const dialog$ = ds.addDialog({
         component: TestDialogComponent
       })
@@ -205,7 +204,7 @@ describe('DialogModule, его компоненты и сервисы работ
       expect(dialog$.isStopped).toBeTruthy()
     })
 
-    it(`закрыть (cancel) dialog кликом на backdrop модального окна`, () => {
+    it(`Dialog closing with click`, () => {
       const dialog$ = ds.addDialog({
         component: TestDialogComponent
       })
@@ -217,7 +216,7 @@ describe('DialogModule, его компоненты и сервисы работ
       expect(dialog$.isStopped).toBeTruthy()
     })
 
-    it(`По cancelEvent диалог закрывается`, () => {
+    it(`Dialog closing with cancelEvent`, () => {
       const dialog$ = ds.addDialog({
         component: TestDialog2Component
       })
@@ -235,7 +234,7 @@ describe('DialogModule, его компоненты и сервисы работ
       expect(completeCaptured).toBeTruthy()
     })
 
-    it(`По resolveEvent диалог закрывается с next`, () => {
+    it(`Dialog closing with resolveEvent`, () => {
       const dialog$ = ds.addDialog({
         component: TestDialog2Component
       })
@@ -253,7 +252,7 @@ describe('DialogModule, его компоненты и сервисы работ
       expect(resultCaptured).toBeTruthy()
     })
 
-    it(`По errorEvent диалог закрывается с error`, () => {
+    it(`Dialog closing with errorEvent`, () => {
       const dialog$ = ds.addDialog({
         component: TestDialog2Component
       })
@@ -270,18 +269,6 @@ describe('DialogModule, его компоненты и сервисы работ
       expect(dialog$.isStopped).toBeTruthy()
       expect(errorCaptured).toBeTruthy()
     })
-
-    // Todo - разобраться как протестировать:  dialog$.error иногда при запуске теста(наверное 1 из 30 раз)
-    //  валит тесты с ошибкой из-за unhandled promise rejection
-    // it(`имеет возможность программно закрыть (с ошибкой) dialog`, () => {
-    //   const dialog$ = ds.addDialog({
-    //     component: TestDialogComponent
-    //   })
-    //   expect(ds.dialogList$.getValue().length).toEqual(1)
-    //   dialog$.error('close Dialog with some test error')
-    //   expect(ds.dialogList$.getValue().length).toEqual(0)
-    //   expect(dialog$.isStopped).toBeTruthy()
-    // })
   })
 
 })

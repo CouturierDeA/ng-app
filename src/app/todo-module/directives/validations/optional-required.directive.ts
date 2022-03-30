@@ -1,6 +1,9 @@
 import {Directive, forwardRef, Input} from "@angular/core";
 import {AbstractControl, NG_VALIDATORS, Validator, Validators} from "@angular/forms";
 
+/**
+ * Provides optional required validation
+ */
 @Directive({
   selector: '[optionalRequired]',
   providers: [

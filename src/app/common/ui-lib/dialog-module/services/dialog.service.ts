@@ -2,16 +2,16 @@ import {Injectable} from "@angular/core";
 import {NotificationParams} from "../domain/notification";
 import {BehaviorSubject} from "rxjs";
 import {Subject} from "rxjs";
-import {finalize, tap} from "rxjs/operators";
+import {finalize, first, takeUntil, tap} from "rxjs/operators";
 
 @Injectable()
 export class DialogService {
   dialogList$ = new BehaviorSubject<NotificationParams[]>([])
 
-  addDialog<O = any, R = any>(n: NotificationParams<O, R>) {
+  addDialog<ComponentPropsType = any, ResolvingType = any>(n: NotificationParams<ComponentPropsType, ResolvingType>) {
     n.resolver && this.removeDialog(n.resolver);
-    let resolver = n.resolver = new Subject<R>()
-
+    let resolver = n.resolver = new Subject<ResolvingType>()
+    const complete$ = new Subject();
     const destroy = () => {
       n.resolver?.unsubscribe();
       const {dialogList$} = this;
@@ -23,8 +23,9 @@ export class DialogService {
       }
     }
     resolver.pipe(
-      tap(destroy),
+      tap(() => complete$.next('')),
       finalize(destroy),
+      takeUntil(complete$),
     ).toPromise()
     const {dialogList$} = this;
     const ns = dialogList$.getValue()

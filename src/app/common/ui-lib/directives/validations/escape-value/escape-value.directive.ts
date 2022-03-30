@@ -8,8 +8,7 @@ export const escapeValidator = (blacklist?: string[], value?: any) => {
   }
 }
 /**
- * Директива для проверки пользовательского ввода
- * проверяет, что пользователь не ввел одно из существующих значений
+ * Checks given list of values does not contain user input
  */
 @Directive({
   selector: '[escapeValue]',

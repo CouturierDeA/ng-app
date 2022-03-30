@@ -12,13 +12,12 @@ export class ScriptLoaderService {
   }
 
   loadScript<T = any>(src: string) {
-    let script = document.createElement('script');
     return new Observable<T>((sub$: Subscriber<any>) => {
+      const {document} = this;
+      const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = src;
       script.onload = (res) => {
-        // this.scripts[name].loaded = true;
-        // resolve({script: name, loaded: true, status: 'Loaded'});
         sub$.next(res)
         sub$.complete()
       };

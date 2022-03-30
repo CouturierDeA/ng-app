@@ -3,10 +3,12 @@ import {AbstractControl, ValidationErrors, Validator} from "@angular/forms";
 import {Observable, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, first, map, switchMap} from "rxjs/operators";
 
-// https://jasonwatmore.com/post/2018/11/10/angular-7-template-driven-forms-validation-example
-
 /**
- * Пример директивы для асинхронной проверки уникальности какого-либо поля
+ * Abstract validator that checks if user input is unique.
+ * You need to extend this class and implement "checker" method that accepts value and returns Observable boolean flag
+ * if the value is unique or not
+ * @param uniqueValue: Object - you can provide debounce time for user input, if validation required or not;
+ *
  */
 @Directive({})
 export abstract class UniqueDirective implements Validator {
@@ -18,8 +20,6 @@ export abstract class UniqueDirective implements Validator {
   @Input() uniqueValue!: {
     debounce?: number,
     required?: boolean
-    entityId?: number,
-    fieldName: string
   };
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {

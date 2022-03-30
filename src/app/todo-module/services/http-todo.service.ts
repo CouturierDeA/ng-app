@@ -47,7 +47,7 @@ export class HttpTodoService {
         title
       } : {}
     }).pipe(
-      delay(400), // delay is only for demo purposes of an app-loading component
+      delay(150), // delay is only for demo purposes of an app-loading component
     )
   }
 }

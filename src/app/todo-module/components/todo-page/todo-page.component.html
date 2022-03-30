@@ -1,18 +1,19 @@
 <section class="todo-page app-container">
-  <h2 class="todo-page__header">Todo list  ({{todoService.totalLength$ | async}} items)</h2>
+  <h2 class="todo-page__header">Todo list</h2>
   <app-todo-search class="todo-page__search"></app-todo-search>
-  <h4 class="todo-page__heading">Completed ({{todoService.completedLength$ | async}})</h4>
+  <h4 class="todo-page__heading">Completed ({{store.completedLength$ | async}})</h4>
   <app-todo-list class="todo-page__list"
                  (onUpdate)="todoService.onUpdateTodo($event)"
                  (onDelete)="todoService.onDeleteTodo($event.id)"
-                 [todoList]="todoService.completedTodoList$ | async">
+                 [todoList]="store.completedTodoList$ | async">
   </app-todo-list>
-  <h4 class="todo-page__heading">Uncompleted ({{todoService.uncompletedLength$ | async}})</h4>
+  <h4 class="todo-page__heading">Uncompleted ({{store.uncompletedLength$ | async}})</h4>
   <app-todo-list class="todo-page__list"
                  (onUpdate)="todoService.onUpdateTodo($event)"
                  (onDelete)="todoService.onDeleteTodo($event.id)"
-                 [todoList]="todoService.uncompletedTodoList$ | async">
+                 [todoList]="store.uncompletedTodoList$ | async">
   </app-todo-list>
+  <p class="todo-page__heading"><b>Total ({{store.totalLength$ | async}})</b></p>
   <app-button [viewType]="'success'" class="todo-add" (click)="todoService.onAddTodo()">
     Add new
   </app-button>

@@ -4,7 +4,6 @@ import {Injectable} from "@angular/core";
 export class AppSettingsServiceForUnitTests {
   readonly isBrowser = true
   readonly isServer = false
-  readonly apiUrl: string = ''
   readonly isDev = false
 }
 
@@ -13,6 +12,5 @@ export class AppSettingsServiceForUnitTests {
 export class AppSettingsServiceForServerUnitTests {
   readonly isBrowser = false
   readonly isServer = true
-  readonly apiUrl: string = ''
   readonly isDev = false
 }

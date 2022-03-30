@@ -9,10 +9,10 @@ export class AppSettingsService {
   ) {
     this.isBrowser = platform.isBrowser;
     this.isServer = platform.isServer;
+    this.isDev = !environment.production;
   }
 
   readonly isBrowser: boolean
   readonly isServer: boolean
-  readonly apiUrl: string = ''
-  readonly isDev = !environment.production
+  readonly isDev: boolean
 }

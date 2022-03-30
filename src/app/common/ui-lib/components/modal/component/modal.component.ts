@@ -12,12 +12,24 @@ import {
 
 import {DOCUMENT, isPlatformBrowser} from "@angular/common";
 import {DialogControls} from "../../../domain/dialog-component";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-modal',
   templateUrl: 'modal.component.html',
   styleUrls: ['modal.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('dialog', [
+      transition('void => *', [
+        style({ transform: 'scale3d(.3, .3, .3)' }),
+        animate(100)
+      ]),
+      transition('* => void', [
+        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
+      ])
+    ])
+  ]
 })
 export class ModalComponent implements OnInit, OnDestroy, DialogControls {
   @Input() componentType?: 'dialog' | 'notification';

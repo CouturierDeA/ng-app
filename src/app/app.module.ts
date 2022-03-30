@@ -9,25 +9,25 @@ import {AppNotificationModule} from "./common/ui-lib/notification-module/app-not
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import {UiEffectsService} from "./common/services/ui-effects/ui-effects.service";
+import {PipeEffectsService} from "./common/services/pipe-effects/pipe-effects.service";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    UiModule,
-    HttpClientModule,
-    FormsModule,
     AppLoadingModule,
     AppDialogModule,
     AppNotificationModule,
+    AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    UiModule
   ],
-  providers:[
-    UiEffectsService
+  providers: [
+    PipeEffectsService
   ],
   bootstrap: [AppComponent]
 })

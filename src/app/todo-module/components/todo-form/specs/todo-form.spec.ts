@@ -6,10 +6,10 @@ import {CommonModule} from "@angular/common";
 import {getDescriptionInput, getTitleInput, getTodoSubmitBtn, setInputValue} from "../../todo-list/specs/utils";
 import {UniqueValueDirective} from "../../../directives/validations/unique.directive";
 import {HttpTodoService} from "../../../services/http-todo.service";
-import {UiEffectsService} from "../../../../common/services/ui-effects/ui-effects.service";
-import {UiEffectsServiceForTesting} from "../../../../common/services/ui-effects/ui-effects-testing.service";
-import {of} from "rxjs";
+import {PipeEffectsService} from "../../../../common/services/pipe-effects/pipe-effects.service";
+import {MockPipeEffectsService} from "../../../../common/services/pipe-effects/mock-pipe-effects.service";
 import {UiModule} from "../../../../common/ui-lib/ui.module";
+import {MockHttpTodoService} from "../../../services/mock-http-todo.service";
 
 describe('Todo form tests', () => {
   let component: TodoFormComponent;
@@ -33,14 +33,8 @@ describe('Todo form tests', () => {
       declarations: [TodoFormComponent, UniqueValueDirective],
       providers: [
         {provide: ComponentFixtureAutoDetect, useValue: true},
-        {
-          provide: HttpTodoService, useValue: {
-            checkUnique(value: string, fieldName: string, entityId?: number) {
-              return of(true)
-            }
-          }
-        },
-        {provide: UiEffectsService, useClass: UiEffectsServiceForTesting},
+        {provide: HttpTodoService, useClass: MockHttpTodoService},
+        {provide: PipeEffectsService, useClass: MockPipeEffectsService},
       ],
       imports: [
         CommonModule,
