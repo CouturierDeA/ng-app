@@ -13,6 +13,7 @@ export class DialogService {
     let resolver = n.resolver = new Subject<ResolvingType>()
     const complete$ = new Subject();
     const destroy = () => {
+      complete$.complete()
       n.resolver?.unsubscribe();
       const {dialogList$} = this;
       const ov = dialogList$.getValue()
@@ -23,7 +24,7 @@ export class DialogService {
       }
     }
     resolver.pipe(
-      tap(() => complete$.next('')),
+      tap(destroy),
       finalize(destroy),
       takeUntil(complete$),
     ).toPromise()

@@ -50,7 +50,9 @@ export class TodoCrudService {
 
     onUpdateTodo(todo: Todo) {
         this.modalsService.updateTodoModal(todo).pipe(
-            switchMap((updatedTodo) => this.todoService.updateTodo(updatedTodo.id, updatedTodo)),
+            switchMap((updatedTodo) => this.todoService.updateTodo(updatedTodo.id, updatedTodo).pipe(
+              this.pes.withEffects()
+            )),
             this.pes.withSuccessNotification((newTodo => `${newTodo.title} successfully updated`)),
             switchMap(_ => this.readTodoListPipe()),
         ).toPromise()
