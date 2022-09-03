@@ -9,32 +9,32 @@ type TestCase = {
 }
 export const escapeValidatorTestCases: Array<TestCase> = [
   {
-    descr: 'Если отсутствует blacklist и ввод присутствует - validate возвращает null',
+    descr: 'If there is no blacklist and input is present - validate returns null',
     output: null,
     formValid: true
   },
   {
-    descr: 'Если blacklist пустой и ввод присутствует - validate возвращает null',
+    descr: 'If blacklist is empty and input is present - validate returns null',
     blacklist: [],
     value: '1234',
     output: null,
     formValid: true
   },
   {
-    descr: 'Если blacklist заполнен и ввод отсутствует - validate возвращает null',
+    descr: 'If the blacklist is full and there is no input - validate returns null',
     blacklist: ['1234'],
     output: null,
     formValid: true
   },
   {
-    descr: 'Если value не входит в список blacklist - validate возвращает null',
+    descr: 'If value is not blacklisted, validate returns null',
     blacklist: ['123'],
     value: '1234',
     output: null,
     formValid: true
   },
   {
-    descr: 'Если value входит в список blacklist - validate возвращает объект с ошибкой (1)',
+    descr: 'If value is blacklisted - validate returns an object with an error (1)',
     blacklist: ['123'],
     value: '123',
     output: {
@@ -43,7 +43,7 @@ export const escapeValidatorTestCases: Array<TestCase> = [
     formValid: false
   },
   {
-    descr: 'Если value входит в список blacklist - validate возвращает объект с ошибкой (2)',
+    descr: 'If value is blacklisted - validate returns an object with an error (2)',
     blacklist: ['321'],
     value: '321',
     output: {
@@ -53,7 +53,7 @@ export const escapeValidatorTestCases: Array<TestCase> = [
   },
 
   {
-    descr: 'Если value входит в список blacklist - validate возвращает объект с ошибкой (3)',
+    descr: 'If value is blacklisted - validate returns an object with an error (3)',
     blacklist: [''],
     value: '',
     output: {
@@ -62,14 +62,14 @@ export const escapeValidatorTestCases: Array<TestCase> = [
     formValid: false
   },
   {
-    descr: `Если value = undefined, blacklist = [''] - validate возвращает null`,
+    descr: `If value = undefined, blacklist = [''] - validate returns null`,
     blacklist: [''],
     value: undefined,
     output: null,
     formValid: true
   },
   {
-    descr: `Если value = '', blacklist = [undefined] - validate возвращает null`,
+    descr: `If value = '', blacklist = [undefined] - validate returns null`,
     blacklist: [undefined] as any,
     value: '',
     output: null,

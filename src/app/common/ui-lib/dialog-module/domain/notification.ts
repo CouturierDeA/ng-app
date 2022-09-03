@@ -7,11 +7,6 @@ import {DialogComponent} from "../../domain/dialog-component";
 
 export type NotificationType = 'danger' | 'warning' | 'success' | 'info'
 
-export interface NotificationData {
-  message?: string
-  type?: NotificationType
-}
-
 export interface NotificationParams<ComponentPropsType = any, ResolvingType = any> {
   escapeModal?: boolean
   resolver?: Subject<ResolvingType>

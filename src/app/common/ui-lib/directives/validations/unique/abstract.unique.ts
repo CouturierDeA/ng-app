@@ -13,7 +13,7 @@ import {debounceTime, distinctUntilChanged, first, map, switchMap} from "rxjs/op
 @Directive({})
 export abstract class UniqueDirective implements Validator {
 
-  checker(value: any, control: AbstractControl): Observable<boolean> {
+  checker<V>(value: V, control: AbstractControl): Observable<boolean> {
     throw 'Unsupported yet'
   }
 

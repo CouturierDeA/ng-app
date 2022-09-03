@@ -1,4 +1,4 @@
-import {ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, TestBed, tick} from "@angular/core/testing";
+import {ComponentFixture, ComponentFixtureAutoDetect, TestBed} from "@angular/core/testing";
 import {CommonModule} from "@angular/common";
 import {DialogListComponent} from "../components/dialog-list/dialog-list.component";
 import {NotificationComponent} from "../components/notification/notification.component";
@@ -114,11 +114,11 @@ describe('DialogModule works correctly', () => {
   })
 
   describe('DialogService store works correctly', () => {
-    it(`dialog list length is 0 by default `, () => {
+    it('dialog list length is 0 by default', () => {
       expect(ds.dialogList$.getValue().length).toEqual(0)
     })
 
-    it(`removes dialogs from the store `, () => {
+    it('removes dialogs from the store', () => {
       const n1: NotificationParams = {
         component: TestDialogComponent,
       }
@@ -135,7 +135,7 @@ describe('DialogModule works correctly', () => {
       expect(ds.dialogList$.getValue().length).toEqual(0)
     })
 
-    it(`добавляет модальное окно в dom `, () => {
+    it('Adds a modal window to the dom', () => {
       const n1: NotificationParams = {
         component: TestDialogComponent
       }
@@ -194,7 +194,7 @@ describe('DialogModule works correctly', () => {
       expect(dialog$.isStopped).toBeTruthy()
     })
 
-    it(`Dialog closing programmatically with Subject.next`, () => {
+    it('Dialog closing programmatically with Subject.next', () => {
       const dialog$ = ds.addDialog({
         component: TestDialogComponent
       })
@@ -204,7 +204,7 @@ describe('DialogModule works correctly', () => {
       expect(dialog$.isStopped).toBeTruthy()
     })
 
-    it(`Dialog closing with click`, () => {
+    it('Dialog closing with click', () => {
       const dialog$ = ds.addDialog({
         component: TestDialogComponent
       })
@@ -216,11 +216,11 @@ describe('DialogModule works correctly', () => {
       expect(dialog$.isStopped).toBeTruthy()
     })
 
-    it(`Dialog closing with cancelEvent`, () => {
+    it('Dialog closing with cancelEvent', () => {
       const dialog$ = ds.addDialog({
         component: TestDialog2Component
       })
-      let completeCaptured: any
+      let completeCaptured: boolean = false;
       dialog$.subscribe({
         complete: () => completeCaptured = true
       })
@@ -234,13 +234,13 @@ describe('DialogModule works correctly', () => {
       expect(completeCaptured).toBeTruthy()
     })
 
-    it(`Dialog closing with resolveEvent`, () => {
+    it('Dialog closing with resolveEvent', () => {
       const dialog$ = ds.addDialog({
         component: TestDialog2Component
       })
-      let resultCaptured: any
+      let resultCaptured: boolean = false;
       dialog$.subscribe({
-        next: r => resultCaptured = r
+        next: result => resultCaptured = result
       })
       expect(ds.dialogList$.getValue().length).toEqual(1)
       fixture.detectChanges()
@@ -252,13 +252,13 @@ describe('DialogModule works correctly', () => {
       expect(resultCaptured).toBeTruthy()
     })
 
-    it(`Dialog closing with errorEvent`, () => {
+    it('Dialog closing with errorEvent', () => {
       const dialog$ = ds.addDialog({
         component: TestDialog2Component
       })
-      let errorCaptured: any
+      let errorCaptured: any = undefined
       dialog$.subscribe({
-        error: r => errorCaptured = r
+        error: error => errorCaptured = error
       })
       expect(ds.dialogList$.getValue().length).toEqual(1)
       fixture.detectChanges()
@@ -270,5 +270,4 @@ describe('DialogModule works correctly', () => {
       expect(errorCaptured).toBeTruthy()
     })
   })
-
 })

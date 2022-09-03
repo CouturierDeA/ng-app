@@ -61,40 +61,38 @@ describe('Confirm value directive works correctly', () => {
     confirmPwdInput = getByDataId(fixture, 'password-confirm')
   });
 
-  it('Два поля для ввода присутствуют', () => {
+  it('There are two input fields', () => {
     expect(pwdInput).toBeDefined()
     expect(confirmPwdInput).toBeDefined()
   })
 
-  it(`Поля заполнены неодинаково неодинаковы - форма invalid`, () => {
+  it('Fields are filled unequally unequal - invalid form', () => {
     setInputValue(pwdInput, '12')
     setInputValue(confirmPwdInput, '123')
     expect(component.form.invalid).toBeTruthy()
   })
 
-  it(`первое поле пустое, второе заполнено - форма invalid`, () => {
+  it('The first field is empty, the second is filled - the form is invalid', () => {
     setInputValue(pwdInput, '')
     setInputValue(confirmPwdInput, '123')
     expect(component.form.invalid).toBeTruthy()
   })
 
-  it(`первое поле заполнено, второе пустое - форма invalid`, () => {
+  it('the first field is filled, the second is empty - the form is invalid', () => {
     setInputValue(pwdInput, '123')
     setInputValue(confirmPwdInput, '')
     expect(component.form.invalid).toBeTruthy()
   })
 
-  it(`оба поля пустые - форма valid`, () => {
+  it('The form is valid if both fields are empty', () => {
     setInputValue(pwdInput, '')
     setInputValue(confirmPwdInput, '')
     expect(component.form.valid).toBeTruthy()
   })
 
-  it(`Если value и confirmValue одинаковы, форма valid`, () => {
+  it('If value and confirmValue are the same, the form is valid', () => {
     setInputValue(pwdInput, '123')
     setInputValue(confirmPwdInput, '123')
     expect(component.form.valid).toBeTruthy()
   })
-
-
 })
