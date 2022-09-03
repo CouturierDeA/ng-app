@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {NotificationData} from "../../domain/notification";
+import {NotificationType} from "../../domain/notification";
 import {DialogComponent, DialogControls} from "../../../domain/dialog-component";
 import {Subject} from "rxjs";
 
@@ -20,7 +20,7 @@ export class NotificationComponent implements DialogComponent {
   @Input()
   width: string = '500px'
   @Input()
-  type?: NotificationData['type']
+  type?: NotificationType
   @Input()
   resolver!: Subject<any>
 

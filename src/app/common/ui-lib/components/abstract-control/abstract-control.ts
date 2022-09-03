@@ -1,6 +1,5 @@
 import {
-  Component,
-  ContentChild, EventEmitter, HostListener, Input, Optional, Output, Self, TemplateRef,
+  Component, ContentChild, EventEmitter, HostListener, Input, Optional, Output, Self, TemplateRef,
 } from '@angular/core';
 import {
   ControlValueAccessor, NgControl, NgForm
@@ -10,8 +9,8 @@ const noop = () => {
 };
 
 /**
- * Абстрактный компонент, имплементация интерфейса ControlValueAccessor
- * необходимая для создания кастомных инпутов типа NgControl
+ * Abstract implementation of ControlValueAccessor
+ * useful to create customizable NgControl
  */
 
 @Component({

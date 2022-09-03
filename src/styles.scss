@@ -34,19 +34,9 @@
   --bg-muted-light: #D0D0D0;
   --border-muted-light: #D0D0D0;
   --text-muted-opposite: #{$body-color};
-  //--text-muted: #D0D0D0;
   --text-muted: #6c757d;
   --border-muted: #6c757d;
 }
-
-//
-//body {
-//  @include page-font();
-//  margin: 0;
-//  box-sizing: border-box;
-//  overflow-x: hidden;
-//  background-color: $body-color;
-//}
 
 .active-link {
   text-decoration: none;
@@ -87,11 +77,6 @@
 .link--success {
   color: $success;
   text-decoration: none;
-}
-
-.app-btn,
-.--btn {
-  @include btn-mixin()
 }
 
 .app-input {
@@ -142,73 +127,6 @@
 
 html, body {
   height: 100%;
-}
-
-.app-dialog {
-  width: 400px;
-  max-width: 100%;
-  padding: 1.5rem 1.5rem 1rem;
-
-  //.app-dialog__title {
-  &__title {
-
-  }
-
-  //.app-dialog__controls {
-  &__controls {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
-    margin-left: -.5rem;
-    margin-right: -.5rem;
-  }
-
-  //.app-dialog__control {
-  &__control {
-    margin: .5rem;
-  }
-}
-
-
-.app-notification {
-  @include modal-body();
-  padding: 2rem 1.5rem 1.5rem;
-
-  &.danger {
-
-  }
-
-  &.warning {
-    //color: $--bg-warning;
-  }
-
-  &.success {
-
-  }
-
-  &.info {
-  }
-
-  //.app-notification__title {
-  &__title {
-    @include modal-title();
-    margin: .25rem 0 0;
-    font-size: $fs-18;
-    line-height: 1.5;
-  }
-  //.app-notification__message {
-  &__message {
-    margin: 0;
-    &.danger {
-      @include errorMessage();
-    }
-  }
-  //.app-notification__close {
-  &__close {
-    @include modal-close();
-    top: .5rem;
-    right: .5rem;
-  }
 }
 
 body {

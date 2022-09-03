@@ -68,17 +68,12 @@ app-modal {
 
   // .app-modal-wrap.dialog {
   &.dialog {
-
   }
 
-  // т.к. этот компонент используется и для нотификаций,
-  // то нотификации должны быть всегда поверх модальных окон
+  // because this component is also used for notifications,
+  // then notifications should always be on top of modal windows
   // .app-modal-wrap.notification {
   &.notification {
     z-index: 1002;
   }
 }
-
-//.app-modal-background.visible {
-//  opacity: 0.75;
-//}

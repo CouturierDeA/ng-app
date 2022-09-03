@@ -1,6 +1,5 @@
 import {
-  Injector,
-  Type
+  Injector, Type
 } from "@angular/core";
 
 import {Subject} from "rxjs";
