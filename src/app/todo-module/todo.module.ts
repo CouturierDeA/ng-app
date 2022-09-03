@@ -16,6 +16,7 @@ import {TodoRoutingModule} from "./todo-routing.module";
 import {UiModule} from "../common/ui-lib/ui.module";
 import {TodoModalsService} from "./services/todo-modals.service";
 import {TodoStoreService} from "./services/todo-store.service";
+import {CommonTodoStoreService} from "./services/common-todo-store.service";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {TodoStoreService} from "./services/todo-store.service";
     // {provide: HttpTodoService, useClass: MockHttpTodoService},
     TodoCrudService,
     TodoStoreService,
+    CommonTodoStoreService,
     TodoModalsService,
   ],
 })

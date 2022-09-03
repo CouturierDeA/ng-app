@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoCrudService} from "../../services/todo-crud.service";
-import {TodoStoreService} from "../../services/todo-store.service";
+import {CommonTodoStoreService} from "../../services/common-todo-store.service";
 
 @Component({
   selector: 'app-todo-page',
@@ -9,7 +9,7 @@ import {TodoStoreService} from "../../services/todo-store.service";
 })
 export class TodoPageComponent implements OnInit {
   constructor(
-    public store: TodoStoreService,
+    public store: CommonTodoStoreService,
     public todoService: TodoCrudService,
   ) {
   }

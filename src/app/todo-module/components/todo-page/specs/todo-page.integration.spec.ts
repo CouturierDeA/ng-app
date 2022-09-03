@@ -22,10 +22,10 @@ import {of} from "rxjs";
 import {DialogService} from "../../../../common/ui-lib/dialog-module/services/dialog.service";
 import {PipeEffectsService} from "../../../../common/services/pipe-effects/pipe-effects.service";
 import {UiModule} from "../../../../common/ui-lib/ui.module";
-import {HttpClient} from "@angular/common/http";
 import {Subject} from "rxjs";
 import {MockHttpTodoService} from "../../../services/mock-http-todo.service";
 import {TodoStoreService} from "../../../services/todo-store.service";
+import {CommonTodoStoreService} from "../../../services/common-todo-store.service";
 
 describe('TodoCrudService integration with TodoPageComponent, TodoSearchComponent, TodoListComponent',
   () => {
@@ -70,6 +70,7 @@ describe('TodoCrudService integration with TodoPageComponent, TodoSearchComponen
           TodoModalsService,
           TodoCrudService,
           TodoStoreService,
+          CommonTodoStoreService,
           NotificationService,
           {provide: PipeEffectsService, useClass: MockPipeEffectsService},
           {provide: HttpTodoService, useClass: MockHttpTodoService},

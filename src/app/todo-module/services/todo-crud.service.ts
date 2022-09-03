@@ -41,9 +41,9 @@ export class TodoCrudService {
     onAddTodo() {
         this.modalsService.addTodoModal().pipe(
             switchMap(todo => this.todoService.addTodo(todo).pipe(
-                this.pes.withEffects()
+                this.pes.withEffects(),
+                this.pes.withSuccessNotification((newTodo => `${newTodo.title} successfully added`)),
             )),
-            this.pes.withSuccessNotification((newTodo => `${newTodo.title} successfully added`)),
             switchMap(_ => this.readTodoListPipe()),
         ).toPromise()
     }
@@ -51,9 +51,9 @@ export class TodoCrudService {
     onUpdateTodo(todo: Todo) {
         this.modalsService.updateTodoModal(todo).pipe(
             switchMap((updatedTodo) => this.todoService.updateTodo(updatedTodo.id, updatedTodo).pipe(
-              this.pes.withEffects()
+              this.pes.withEffects(),
+              this.pes.withSuccessNotification((newTodo => `${newTodo.title} successfully updated`)),
             )),
-            this.pes.withSuccessNotification((newTodo => `${newTodo.title} successfully updated`)),
             switchMap(_ => this.readTodoListPipe()),
         ).toPromise()
     }

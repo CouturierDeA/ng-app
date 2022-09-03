@@ -1,34 +1,18 @@
 import {Injectable} from '@angular/core';
-import {combineLatest, map} from 'rxjs';
-import {Todo} from "../domain/todo";
+import {combineLatest} from 'rxjs';
 import {BehaviorSubject} from "rxjs";
+import {CommonTodoStoreService} from "./common-todo-store.service";
 
 /**
- * To do Reactive storage
+ * To do Reactive storage with search
  */
 @Injectable()
 export class TodoStoreService {
+  constructor(
+    private store: CommonTodoStoreService
+  ) {
+  }
+  searchList$ = this.store.list$
   searchByTitle$ = new BehaviorSubject('')
-  searchList$ = new BehaviorSubject<Todo[]>([])
   searchParams$ = combineLatest([this.searchByTitle$])
-
-  completedTodoList$ = this.searchList$.pipe(
-    map(list => list.filter(li => li.completed)),
-  );
-
-  uncompletedTodoList$ = this.searchList$.pipe(
-    map(list => list.filter(li => !li.completed))
-  );
-
-  totalLength$ = this.searchList$.pipe(
-    map(v => v.length)
-  )
-
-  completedLength$ = this.completedTodoList$.pipe(
-    map(v => v.length)
-  )
-
-  uncompletedLength$ = this.uncompletedTodoList$.pipe(
-    map(v => v.length)
-  )
 }

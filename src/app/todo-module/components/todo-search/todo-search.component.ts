@@ -1,11 +1,8 @@
 import {
-  Component,
-  OnDestroy,
-  ViewChild,
-  ElementRef, AfterViewInit
+  Component, OnDestroy, ViewChild, ElementRef, AfterViewInit
 } from '@angular/core';
-import {fromEvent, Subscription} from "rxjs";
-import {debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs/operators";
+import {fromEvent, Subscription, of} from "rxjs";
+import {catchError, debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs/operators";
 import {TodoCrudService} from "../../services/todo-crud.service";
 import {TodoStoreService} from "../../services/todo-store.service";
 
@@ -31,7 +28,11 @@ export class TodoSearchComponent implements AfterViewInit, OnDestroy {
       distinctUntilChanged(),
       debounceTime(500),
       tap(title => this.searchByTitle$.next(title)),
-      switchMap(_ => this.todoService.readTodoListPipe()),
+      switchMap(_ => this.todoService.readTodoListPipe()
+        .pipe(
+          catchError(_ => of([]))
+        )
+      ),
     ).subscribe()
   }
 

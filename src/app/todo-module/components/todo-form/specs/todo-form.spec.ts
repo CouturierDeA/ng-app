@@ -58,20 +58,20 @@ describe('Todo form tests', () => {
   it('expect TodoSubmitBtn toBeDefined', async () => {
     component.todo = newTodo
     fixture.detectChanges();
-    let btn = getTodoSubmitBtn(fixture);
-    expect(btn).toBeDefined()
+    const submitButton = getTodoSubmitBtn(fixture);
+    expect(submitButton).toBeDefined()
   });
 
   it('expect title input toBeDefined', async () => {
     await fixture.whenStable()
-    const t = getTitleInput(fixture)
-    expect(t).toBeDefined()
+    const titleInput = getTitleInput(fixture)
+    expect(titleInput).toBeDefined()
   });
 
   it('expect description input toBeDefined', async () => {
     await fixture.whenStable()
-    const d = getDescriptionInput(fixture)
-    expect(d).toBeDefined()
+    const descriptionInput = getDescriptionInput(fixture)
+    expect(descriptionInput).toBeDefined()
   });
 
 
@@ -80,14 +80,14 @@ describe('Todo form tests', () => {
     component.todo = newTodo
     fixture.detectChanges();
     await fixture.whenStable()
-    const dt = 'Test new todo description'
+    const newDescription = 'Test new todo description'
     const descriptionInput = getDescriptionInput(fixture)
-    setInputValue(descriptionInput, dt)
+    setInputValue(descriptionInput, newDescription)
     tick(1000)
 
-    const tt = 'Test new todo title'
+    const newTitle = 'Test new todo title'
     const titleInput = getTitleInput(fixture)
-    setInputValue(titleInput, tt)
+    setInputValue(titleInput, newTitle)
     tick(1000)
 
     const btn = getTodoSubmitBtn(fixture);
@@ -98,8 +98,8 @@ describe('Todo form tests', () => {
     tick(1000)
     expect(component.resolveEvent.emit).toHaveBeenCalledWith({
       id: newTodo.id,
-      title: tt,
-      description: dt,
+      title: newTitle,
+      description: newDescription,
     });
   }));
 })

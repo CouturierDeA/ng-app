@@ -46,8 +46,8 @@ describe('TodoListComponent renders todo list correctly', () => {
   });
 
   it('should display todo items title and description', () => {
-    getItemsListFromFixture(fixture)!.forEach((ti, index) => {
-      const {titleText, descriptionText} = ti;
+    getItemsListFromFixture(fixture)!.forEach((todoItem, index) => {
+      const {titleText, descriptionText} = todoItem;
       expect(titleText).toEqual(`Test todo ${index + 1}`);
       expect(descriptionText).toEqual(`Test todo ${index + 1} description`);
     })
@@ -71,8 +71,8 @@ describe('TodoListComponent renders todo list correctly', () => {
   it('emits todo item to update after update btn click', async () => {
     spyOn(component.onUpdate, 'emit');
     const indexOfItem = 0
-    const btn = getUpdateBtn(fixture, indexOfItem);
-    btn.click()
+    const submitButton = getUpdateBtn(fixture, indexOfItem);
+    submitButton.click()
     fixture.detectChanges();
     expect(component.onUpdate.emit).toHaveBeenCalledWith(todoList[indexOfItem]);
   });
@@ -80,8 +80,8 @@ describe('TodoListComponent renders todo list correctly', () => {
   it('emits todo item to delete after delete btn click', async () => {
     spyOn(component.onDelete, 'emit');
     const indexOfItem = 1
-    const btn = getDeleteBtn(fixture, indexOfItem);
-    btn.click()
+    const deleteButton = getDeleteBtn(fixture, indexOfItem);
+    deleteButton.click()
     fixture.detectChanges();
     expect(component.onDelete.emit).toHaveBeenCalledWith(todoList[indexOfItem]);
   });
